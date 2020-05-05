@@ -1,4 +1,4 @@
-package com.tartu.books;
+package com.tartu.library;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
