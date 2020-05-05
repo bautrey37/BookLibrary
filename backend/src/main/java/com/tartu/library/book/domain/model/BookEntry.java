@@ -14,6 +14,6 @@ public class BookEntry {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
-    String name;
+    String bookName;
 
 }
