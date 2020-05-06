@@ -1,11 +1,12 @@
 package com.tartu.library.book.domain.model;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import lombok.Data;
+
+import javax.persistence.*;
 import java.util.UUID;
 
+@Entity
+@Data
 public class BookItem {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
