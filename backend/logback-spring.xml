@@ -32,7 +32,7 @@
         <appender-ref ref="Console" />
     </root>
      
-    <!-- LOG "com.baeldung*" at TRACE level -->
+    <!-- LOG "com.tartu*" at TRACE level -->
     <logger name="com.tartu" level="trace" additivity="false">
         <appender-ref ref="RollingFile" />
         <appender-ref ref="Console" />
