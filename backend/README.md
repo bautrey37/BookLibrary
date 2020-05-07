@@ -2,7 +2,9 @@
 
 This is a practice project for the final of Enterprise Systems Integration Class
 
-By: Brandon Autrey
+## Author
+
+Brandon Autrey
 
 ## Description
 
@@ -18,9 +20,8 @@ It should be able to keep track of multiple copies of the same book.  The borrow
 -   Cool plugins:
     -   Atom Material Icons
     -   Material Theme UI
-    
 
-### Libraries:
+## Libraries:
 
 -   Spring Boot 2.2.7
     -   cloud-connectors
@@ -32,6 +33,39 @@ It should be able to keep track of multiple copies of the same book.  The borrow
 -   postgresql
 -   h2
 -   lombok
+
+## Database
+
+- Local DB is H2
+- Production DB on Heroku is Postgres
+
+# Heroku
+
+Deployed at `https://<create-app>.herokuapp.com/`
+
+### Create Deployment 
+
+* `heroku login` 
+* `heroku create`
+* `git push heroku master`
+    * Pushes code to Heroku from master
+* `heroku ps:scale web=1` 
+* `heroku open`
+    * Opens new tab in browser to show app
+
+### Heroku useful commands
+
+* `git push heroku <branch>:master`
+    * Pushes branch/master to Heroku
+* `heroku git:remote --app my-app-name`
+    * Switch the remote Heroku is hooked too
+* `heroku pg:psql postgresql-reticulated-84032 --app <create-app>`
+    * Login to Postgres DB CLI
+* `heroku info`
+* `heroku config`
+* `heroku logs --tail`
+    * View only the tail of the logs on the server
+
 
 # Domain Model
 
@@ -82,6 +116,29 @@ Fields:
 -   Person (OneToOne)
 
 # API
+
+## API Response Structure
+
+Successful request is responded with HTTP status 2XX and response value in body (JSON). Value can be any valid JSON data type.
+
+```json
+{
+  "id": 1,
+  "description": "book stuff"
+}
+``` 
+
+Failed request is responded with appropriate HTTP status code 4XX or 5XX and error object in body (JSON).
+Suberror field is either null or populated with errors associated with the main error such as validation of fields in request body.
+```json
+{
+  "apierror": {
+    "message": "why something failed",
+    "status": "NOT_FOUND",
+    "suberror": null
+  }
+}
+```
 
 ## Book Entry
 
