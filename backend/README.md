@@ -44,18 +44,46 @@ Books are listed shown by the book entry and they will return back a count of ho
 
 ### Book Entry
 
+Fields:
+-   ISBN (International Standard Book Number)
+-   Book Name
+-   Author
+-   Publish Date
+
+If only ISBN is posted, then the other book information will be pulled. If no ISBN is posted, then the other book information is required.
+
 ### Book Item
 
-### Borrower
+Fields:
+-   Owner (OneToOne) as Person
+-   Book Entry (ManyToOne)
+-   Status??
+
+### Person
 
 Fields:
 -   Name
+-   E-mail
+
+### Borrow
+
+Fields:
+-   Status??
+-   Person (OneToOne)
+-   Book Item (OneToOne)
 
 ### Review
 
+Fields:
+-   Rating (1-5)
+-   Review Text
+-   Draft (Boolean)
+-   Book Entry (ManyToOne)
+-   Person (OneToOne)
+
 # API
 
-## Books
+## Book Entry
 
 -   ### `GET /api/book`
 
@@ -65,14 +93,20 @@ Fields:
 -   ### `POST /api/book`
 
     Add a new book entry to the library. Will automatically create a book item to correspond.  If book entry aleady exists, just create new book item. 
-    
--   ### `DELETE /api/book`
 
-    Deletes Book Entry and all associated Book Items.  API should be protected.
-    
 -   ### `GET /api/book/:id`
 
     Retrieve a single book entry by ID.
+    
+-   ### `PATCH /api/book/:id`
+
+    Update information on Book Entry. API should be protected.
+    
+-   ### `DELETE /api/book/:id`
+
+    Deletes Book Entry by ID and all associated Book Items.  API should be protected.
+    
+## Book Item
     
 -   ### `GET /api/book/item/:id`
 
@@ -81,7 +115,9 @@ Fields:
 -   ### `DELTETE /api/book/item/:id`   
 
     Deletes a single book item by ID.  API should be protected.
-    
+
+## Borrow
+
 -   ### `POST /api/book/borrow`
 
     Borrow a book.  Needs to submit identifying information such as name of person.  
@@ -93,11 +129,17 @@ Fields:
     Returns a book to the library. 
     Will receive the option to submit a review.  Borrowers information is already populated in unpublished review.  Link to do review will be sent back with HATEOAS.
 
--   ### `POST /api/book/review`
+## Review
+
+-   ### `POST /api/book/:id/review`
 
     Create review of the Book Entry without previously being borrowed.  The review is linked to the Book Entry.
-    
--   ### `PATCH /api/book/review/:id`
+
+-   ### `GET /api/book/:id/review`
+
+    Retrieves all reviews for Book Entry
+
+-   ### `PATCH /api/book/:id/review/:id`
 
     Create review of the Book Entry that was previously borrowed. After borrowing, an unpublished draft review is already created with borrower information.
     If the ID matches an unpublished review, then the review will be updated on that review.
