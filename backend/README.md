@@ -1,6 +1,8 @@
 # Books Library Backend
 
-This is a practice project for the final of Enterprise Systems Integration Class
+This is a practice project for the final of Enterprise Systems Integration Class.
+
+The goal is to have the entire API navigable with HATEOAS. 
 
 ## Author
 
@@ -15,8 +17,8 @@ It should be able to keep track of multiple copies of the same book.  The borrow
 ## Configuration
 
 -   Install Java 14
--   Use Google Java Formatter plugin
--   Use IntelliJ IDE
+-   Google Java Formatter plugin
+-   IntelliJ IDE
 -   Cool plugins:
     -   Atom Material Icons
     -   Material Theme UI

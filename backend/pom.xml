@@ -2,23 +2,33 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
+	<artifactId>backend</artifactId>
+	<packaging>jar</packaging>
+
 	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.2.7.BUILD-SNAPSHOT</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<groupId>com.tartu</groupId>
+		<artifactId>library</artifactId>
+		<version>0.0.1</version>
 	</parent>
-	<groupId>com.tartu</groupId>
-	<artifactId>library</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
-	<name>library</name>
-	<description>Book Library project for Spring Boot</description>
 
 	<properties>
 		<java.version>14</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+<!--		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
+
+		<!-- backend dependencies -->
+<!--		<rest-assured.version>4.3.0</rest-assured.version>-->
+		<postgresql.version>42.2.12</postgresql.version>
 	</properties>
 
 	<dependencies>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-cloud-connectors</artifactId>
@@ -42,21 +52,29 @@
 			<scope>runtime</scope>
 			<optional>true</optional>
 		</dependency>
+
+		<!-- In-Memory database used for local development & testing -->
 		<dependency>
 			<groupId>com.h2database</groupId>
 			<artifactId>h2</artifactId>
 			<scope>runtime</scope>
 		</dependency>
+
+		<!-- PostgreSQL used in Staging and Production environment, e.g. on Heroku -->
 		<dependency>
 			<groupId>org.postgresql</groupId>
 			<artifactId>postgresql</artifactId>
-			<scope>runtime</scope>
+			<version>${postgresql.version}</version>
 		</dependency>
+
+		<!-- Switch back from Spring Boot 2.x standard HikariCP to Tomcat JDBC,
+		configured later in Heroku (see https://stackoverflow.com/a/49970142/4964553) -->
 		<dependency>
-			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<optional>true</optional>
+			<groupId>org.apache.tomcat</groupId>
+			<artifactId>tomcat-jdbc</artifactId>
 		</dependency>
+
+		<!-- Testing -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-test</artifactId>
@@ -68,6 +86,25 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
+
+<!--		<dependency>-->
+<!--			<groupId>io.rest-assured</groupId>-->
+<!--			<artifactId>rest-assured</artifactId>-->
+<!--			<version>${rest-assured.version}</version>-->
+<!--			<scope>test</scope>-->
+<!--		</dependency>-->
+
+		<!-- Secure backend API -->
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.boot</groupId>-->
+<!--			<artifactId>spring-boot-starter-security</artifactId>-->
+<!--		</dependency>-->
+
+<!--		<dependency>-->
+<!--			<groupId>org.springframework.security</groupId>-->
+<!--			<artifactId>spring-security-test</artifactId>-->
+<!--			<scope>test</scope>-->
+<!--		</dependency>-->
 	</dependencies>
 
 	<build>
