@@ -1,15 +1,15 @@
 package com.tartu.library.book.rest;
 
+import com.tartu.library.book.application.dto.BookItemDTO;
 import com.tartu.library.book.application.services.BookService;
 import com.tartu.library.book.domain.model.BookEntry;
+import com.tartu.library.book.domain.model.BookItem;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,7 +29,16 @@ public class BookRestController {
     }
 
     @PostMapping
-    public BookEntry createBook() {
+    public BookEntry createBook(@RequestBody @Validated BookItemDTO partialBookItemDTO) {
+        logger.info("Creating book in library");
+        bookService.createBookInLibrary(partialBookItemDTO);
         return null;
+    }
+
+    @GetMapping("/item")
+    public CollectionModel<BookItem> retrieveAllBookItems() {
+        logger.info("Retrieving all book items");
+        List<BookItem> bookItems = bookService.retrieveAllBookItems();
+        return new CollectionModel<>(bookItems);
     }
 }
