@@ -5,8 +5,11 @@ import com.tartu.library.person.domain.model.Person;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.UUID;
 
 @Entity
@@ -25,6 +28,11 @@ public class BookItem {
 
     @ManyToOne
     BookEntry bookInfo;
+
+    @CreationTimestamp
+    private LocalDateTime createDateTime;
+    @UpdateTimestamp
+    private LocalDateTime updatedDateTime;
 
     public static BookItem of(BookEntry bookEntry, Person owner, String serialNumber) {
         BookItem bi = new BookItem();
