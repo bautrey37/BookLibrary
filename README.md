@@ -1,5 +1,7 @@
 # Book Library
 
+[![Build Status](https://travis-ci.com/bautrey37/BookLibrary.svg?branch=master)](https://travis-ci.com/bautrey37/BookLibrary)
+
 Author: Brandon Autrey
 
 # Docker
