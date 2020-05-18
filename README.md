@@ -4,6 +4,9 @@
 
 Author: Brandon Autrey
 
+[![forthebadge](https://forthebadge.com/images/badges/made-with-java.svg)](https://forthebadge.com)
+[![forthebadge](https://forthebadge.com/images/badges/made-with-crayons.svg)](https://forthebadge.com)
+
 # Docker
 
 Build docker container: `docker build . --tag library:latest`
