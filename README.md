@@ -37,6 +37,44 @@ library
 └── pom.xml     → Maven parent pom managing both modules
 ```
 
+# Heroku
+
+Deployed at `https://tartu-library.herokuapp.com/`
+
+### Create Deployment 
+
+- `heroku login` 
+- `heroku create`
+- `git push heroku master`
+    - Pushes code to Heroku from master
+- `heroku ps:scale web=1` 
+- `heroku open`
+    - Opens new tab in browser to show app
+
+### Heroku useful commands
+
+- `git push heroku <branch>:master`
+    - Pushes branch/master to Heroku
+- `heroku git:remote --app my-app-name`
+    - Switch the remote Heroku is hooked too
+- `heroku pg:psql postgresql-? --app tartu-library`
+    - Login to Postgres DB CLI
+- `heroku info`
+- `heroku config`
+- `heroku logs --tail`
+    - View only the tail of the logs on the server
+    
+### Postgres
+
+Useful commands:
+[Link](http://www.emblocsoft.com/About/PG/Useful-PostgreSQL-commands)
+-   `\dt` - show all tables in the current scheme
+    -   `\dt+` - show table sizes
+-   `\q` - quit psql
+-   `heroku pg:psql postgresql-elliptical-92657 --app tartu-library < src/main/resources/seed.sql`
+    -   run data.sql file on the postgres database  
+
+
 ## Docker
 
 Build docker container: `docker build . --tag library:latest`
