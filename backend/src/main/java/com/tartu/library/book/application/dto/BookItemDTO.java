@@ -6,7 +6,7 @@ import org.springframework.hateoas.RepresentationModel;
 
 @Data
 public class BookItemDTO extends RepresentationModel<BookItemDTO> {
-    String serialNumber;
-    BookEntryDTO bookInfo;
-    PersonDTO owner;
+  String serialNumber;
+  BookEntryDTO bookInfo;
+  PersonDTO owner;
 }

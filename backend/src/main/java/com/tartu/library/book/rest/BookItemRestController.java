@@ -14,14 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/book/item")
 public class BookItemRestController {
 
-    Logger logger = LoggerFactory.getLogger(BookItemRestController.class);
+  Logger logger = LoggerFactory.getLogger(BookItemRestController.class);
 
-    @Autowired
-    BookService bookService;
+  @Autowired BookService bookService;
 
-    @GetMapping
-    public CollectionModel<BookItemDTO> retrieveAllBookItems() {
-        logger.info("Retrieving all book items");
-        return bookService.retrieveAllBookItems();
-    }
+  @GetMapping
+  public CollectionModel<BookItemDTO> retrieveAllBookItems() {
+    logger.info("Retrieving all book items");
+    return bookService.retrieveAllBookItems();
+  }
 }

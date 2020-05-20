@@ -5,6 +5,6 @@ import org.springframework.hateoas.RepresentationModel;
 
 @Data
 public class PersonDTO extends RepresentationModel<PersonDTO> {
-    String name;
-    String email;
+  String name;
+  String email;
 }

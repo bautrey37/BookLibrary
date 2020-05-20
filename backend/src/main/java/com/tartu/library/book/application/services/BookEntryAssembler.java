@@ -7,18 +7,19 @@ import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSuppor
 import org.springframework.stereotype.Component;
 
 @Component
-public class BookEntryAssembler extends RepresentationModelAssemblerSupport<BookEntry, BookEntryDTO> {
-    public BookEntryAssembler() {
-        super(BookRestController.class, BookEntryDTO.class);
-    }
+public class BookEntryAssembler
+    extends RepresentationModelAssemblerSupport<BookEntry, BookEntryDTO> {
+  public BookEntryAssembler() {
+    super(BookRestController.class, BookEntryDTO.class);
+  }
 
-    @Override
-    public BookEntryDTO toModel(BookEntry bookEntry) {
-        BookEntryDTO dto = createModelWithId(bookEntry.getId(), bookEntry);
-        dto.setAuthor(bookEntry.getAuthor());
-        dto.setBookName(bookEntry.getBookName());
-        dto.setPublishDate(bookEntry.getPublishDate());
-        dto.setISBN(bookEntry.getISBN());
-        return dto;
-    }
+  @Override
+  public BookEntryDTO toModel(BookEntry bookEntry) {
+    BookEntryDTO dto = createModelWithId(bookEntry.getId(), bookEntry);
+    dto.setAuthor(bookEntry.getAuthor());
+    dto.setBookName(bookEntry.getBookName());
+    dto.setPublishDate(bookEntry.getPublishDate());
+    dto.setISBN(bookEntry.getISBN());
+    return dto;
+  }
 }
