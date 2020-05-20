@@ -1,5 +1,6 @@
 package com.tartu.library.person.domain.model;
 
+import com.tartu.library.person.application.dto.PersonDTO;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,22 +18,18 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor(force = true, access = AccessLevel.PROTECTED)
 public class Person {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+  String name;
+  String email;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private UUID id;
+  @CreationTimestamp private LocalDateTime createDateTime;
+  @UpdateTimestamp private LocalDateTime updatedDateTime;
 
-    String name;
-    String email;
-
-    @CreationTimestamp
-    private LocalDateTime createDateTime;
-    @UpdateTimestamp
-    private LocalDateTime updatedDateTime;
-
-    public static Person of(PersonDTO personDTO) {
-        Person p = new Person();
-        p.setName(personDTO.getName());
-        p.setEmail(personDTO.getEmail());
-        return p;
-    }
+  public static Person of(PersonDTO personDTO) {
+    Person p = new Person();
+    p.setName(personDTO.getName());
+    p.setEmail(personDTO.getEmail());
+    return p;
+  }
 }
