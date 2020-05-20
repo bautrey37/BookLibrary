@@ -10,6 +10,9 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.awt.print.Book;
+import java.util.UUID;
+
 @RestController
 @RequestMapping("/api/book")
 public class BookEntryRestController {
@@ -27,5 +30,11 @@ public class BookEntryRestController {
   public BookItemDTO createBook(@RequestBody @Validated BookItemDTO partialBookItemDTO) {
     logger.info("Creating book in library");
     return bookService.createBookInLibrary(partialBookItemDTO);
+  }
+
+  @GetMapping("{uuid}")
+  public BookEntryDTO retrieveBook(@PathVariable UUID uuid) throws Exception {
+    logger.info("Retrieving Book Entry");
+    return bookService.retrieveBookEntry(uuid);
   }
 }

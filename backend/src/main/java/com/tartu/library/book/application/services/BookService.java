@@ -13,6 +13,7 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class BookService {
@@ -46,5 +47,21 @@ public class BookService {
     bookItemRepository.save(bookItem);
 
     return bookItemAssembler.toModel(bookItem);
+  }
+
+  public BookItemDTO retrieveBookItem(UUID uuid) throws Exception {
+    BookItem item =
+        bookItemRepository
+            .findById(uuid)
+            .orElseThrow(() -> new Exception("Book Item cannot be found"));
+    return bookItemAssembler.toModel(item);
+  }
+
+  public BookEntryDTO retrieveBookEntry(UUID uuid) throws Exception {
+    BookEntry entry =
+            bookEntryRepository
+                    .findById(uuid)
+                    .orElseThrow(() -> new Exception("Book Entry cannot be found"));
+    return bookEntryAssembler.toModel(entry);
   }
 }

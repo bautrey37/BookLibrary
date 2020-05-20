@@ -7,8 +7,11 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/book/item")
@@ -22,5 +25,11 @@ public class BookItemRestController {
   public CollectionModel<BookItemDTO> retrieveAllBookItems() {
     logger.info("Retrieving all book items");
     return bookService.retrieveAllBookItems();
+  }
+
+  @GetMapping("{uuid}")
+  public BookItemDTO retrieveBookItem(@PathVariable UUID uuid) throws Exception {
+    logger.info("Retrieving Book Item");
+    return bookService.retrieveBookItem(uuid);
   }
 }
