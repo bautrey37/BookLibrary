@@ -58,7 +58,7 @@ Deployed at `https://tartu-library.herokuapp.com/`
     - Pushes branch/master to Heroku
 - `heroku git:remote --app my-app-name`
     - Switch the remote Heroku is hooked too
-- `heroku pg:psql postgresql-? --app tartu-library`
+- `heroku pg:psql postgresql-globular-10076 --app tartu-library`
     - Login to Postgres DB CLI
 - `heroku info`
 - `heroku config`
@@ -72,8 +72,8 @@ Useful commands:
 -   `\dt` - show all tables in the current scheme
     -   `\dt+` - show table sizes
 -   `\q` - quit psql
--   `heroku pg:psql postgresql-elliptical-92657 --app tartu-library < src/main/resources/seed.sql`
-    -   run data.sql file on the postgres database  
+-   `heroku pg:psql postgresql-globular-10076 --app tartu-library < src/main/resources/seed.sql`
+    -   run seed.sql file on the postgres database  
 
 
 ## Docker
