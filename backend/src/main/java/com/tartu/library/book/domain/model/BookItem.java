@@ -16,43 +16,34 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor(force = true, access = AccessLevel.PROTECTED)
 public class BookItem {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private UUID id;
+  String serialNumber;
+  BookStatus status;
+  @OneToOne Person Owner;
+  @ManyToOne BookEntry bookInfo;
+  @Id
+  @GeneratedValue(strategy = GenerationType.AUTO)
+  private UUID id;
+  @CreationTimestamp private LocalDateTime createDateTime;
+  @UpdateTimestamp private LocalDateTime updatedDateTime;
 
-    String serialNumber;
-    BookStatus status;
+  public static BookItem of(BookEntry bookEntry, Person owner, String serialNumber) {
+    BookItem bi = new BookItem();
+    bi.setStatus(BookStatus.AVAILABLE);
+    bi.setBookInfo(bookEntry);
+    bi.setOwner(owner);
+    bi.setSerialNumber(serialNumber);
+    return bi;
+  }
 
-    @OneToOne
-    Person Owner;
+  public static BookItem of(BookItemDTO bookItemDTO) {
+    BookEntry bookEntry = BookEntry.of(bookItemDTO.getBookInfo());
+    Person owner = Person.of(bookItemDTO.getOwner());
 
-    @ManyToOne
-    BookEntry bookInfo;
-
-    @CreationTimestamp
-    private LocalDateTime createDateTime;
-    @UpdateTimestamp
-    private LocalDateTime updatedDateTime;
-
-    public static BookItem of(BookEntry bookEntry, Person owner, String serialNumber) {
-        BookItem bi = new BookItem();
-        bi.setStatus(BookStatus.AVAILABLE);
-        bi.setBookInfo(bookEntry);
-        bi.setOwner(owner);
-        bi.setSerialNumber(serialNumber);
-        return bi;
-    }
-
-    public static BookItem of(BookItemDTO bookItemDTO) {
-        BookEntry bookEntry = BookEntry.of(bookItemDTO.getBookInfo());
-        Person owner = Person.of(bookItemDTO.getOwner());
-
-        BookItem bi = new BookItem();
-        bi.setStatus(BookStatus.AVAILABLE);
-        bi.setBookInfo(bookEntry);
-        bi.setOwner(owner);
-        bi.setSerialNumber(bookItemDTO.getSerialNumber());
-        return bi;
-    }
-
+    BookItem bi = new BookItem();
+    bi.setStatus(BookStatus.AVAILABLE);
+    bi.setBookInfo(bookEntry);
+    bi.setOwner(owner);
+    bi.setSerialNumber(bookItemDTO.getSerialNumber());
+    return bi;
+  }
 }
