@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/book")
-public class BookRestController {
-  Logger logger = LoggerFactory.getLogger(BookRestController.class);
+public class BookEntryRestController {
+  Logger logger = LoggerFactory.getLogger(BookEntryRestController.class);
 
   @Autowired BookService bookService;
 
@@ -27,11 +27,5 @@ public class BookRestController {
   public BookItemDTO createBook(@RequestBody @Validated BookItemDTO partialBookItemDTO) {
     logger.info("Creating book in library");
     return bookService.createBookInLibrary(partialBookItemDTO);
-  }
-
-  @GetMapping("/item")
-  public CollectionModel<BookItemDTO> retrieveAllBookItems() {
-    logger.info("Retrieving all book items");
-    return bookService.retrieveAllBookItems();
   }
 }

@@ -2,7 +2,7 @@ package com.tartu.library.book.application.services;
 
 import com.tartu.library.book.application.dto.BookEntryDTO;
 import com.tartu.library.book.domain.model.BookEntry;
-import com.tartu.library.book.rest.BookRestController;
+import com.tartu.library.book.rest.BookEntryRestController;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
 import org.springframework.stereotype.Component;
 
@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 public class BookEntryAssembler
     extends RepresentationModelAssemblerSupport<BookEntry, BookEntryDTO> {
   public BookEntryAssembler() {
-    super(BookRestController.class, BookEntryDTO.class);
+    super(BookEntryRestController.class, BookEntryDTO.class);
   }
 
   @Override
