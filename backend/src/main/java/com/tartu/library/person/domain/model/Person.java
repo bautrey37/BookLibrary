@@ -1,5 +1,6 @@
 package com.tartu.library.person.domain.model;
 
+import com.tartu.library.person.application.dto.PersonDTO;
 import lombok.AccessLevel;
 import lombok.Data;
 import lombok.NoArgsConstructor;

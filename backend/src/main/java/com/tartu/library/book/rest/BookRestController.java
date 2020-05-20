@@ -1,5 +1,6 @@
 package com.tartu.library.book.rest;
 
+import com.tartu.library.book.application.dto.BookEntryDTO;
 import com.tartu.library.book.application.dto.BookItemDTO;
 import com.tartu.library.book.application.services.BookService;
 import com.tartu.library.book.domain.model.BookEntry;
@@ -8,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,23 +24,20 @@ public class BookRestController {
     BookService bookService;
 
     @GetMapping
-    public CollectionModel<BookEntry> retrieveAllBooks() {
+    public CollectionModel<BookEntryDTO> retrieveAllBooks() {
         logger.info("Retrieving all books");
-        List<BookEntry> books = bookService.retrieveAllBooks();
-        return new CollectionModel<>(books);
+        return bookService.retrieveAllBooks();
     }
 
     @PostMapping
-    public BookEntry createBook(@RequestBody @Validated BookItemDTO partialBookItemDTO) {
+    public BookItemDTO createBook(@RequestBody @Validated BookItemDTO partialBookItemDTO) {
         logger.info("Creating book in library");
-        bookService.createBookInLibrary(partialBookItemDTO);
-        return null;
+        return bookService.createBookInLibrary(partialBookItemDTO);
     }
 
     @GetMapping("/item")
-    public CollectionModel<BookItem> retrieveAllBookItems() {
+    public CollectionModel<BookItemDTO> retrieveAllBookItems() {
         logger.info("Retrieving all book items");
-        List<BookItem> bookItems = bookService.retrieveAllBookItems();
-        return new CollectionModel<>(bookItems);
+        return bookService.retrieveAllBookItems();
     }
 }

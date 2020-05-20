@@ -7,8 +7,8 @@ import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSuppor
 import org.springframework.stereotype.Component;
 
 @Component
-public class BookAssembler extends RepresentationModelAssemblerSupport<BookEntry, BookEntryDTO> {
-    public BookAssembler() {
+public class BookEntryAssembler extends RepresentationModelAssemblerSupport<BookEntry, BookEntryDTO> {
+    public BookEntryAssembler() {
         super(BookRestController.class, BookEntryDTO.class);
     }
 

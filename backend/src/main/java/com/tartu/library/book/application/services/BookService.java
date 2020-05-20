@@ -1,13 +1,17 @@
 package com.tartu.library.book.application.services;
 
+import com.tartu.library.book.application.dto.BookEntryDTO;
 import com.tartu.library.book.application.dto.BookItemDTO;
 import com.tartu.library.book.domain.model.BookEntry;
 import com.tartu.library.book.domain.model.BookItem;
 import com.tartu.library.book.domain.repository.BookEntryRepository;
 import com.tartu.library.book.domain.repository.BookItemRepository;
+import com.tartu.library.person.application.dto.PersonDTO;
 import com.tartu.library.person.domain.model.Person;
 import com.tartu.library.person.domain.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -23,16 +27,24 @@ public class BookService {
     @Autowired
     PersonRepository personRepository;
 
+    @Autowired
+    BookEntryAssembler bookEntryAssembler;
 
-    public List<BookEntry> retrieveAllBooks() {
-        return bookEntryRepository.findAll();
+    @Autowired
+    BookItemAssembler bookItemAssembler;
+
+
+    public CollectionModel<BookEntryDTO> retrieveAllBooks() {
+        List<BookEntry> books = bookEntryRepository.findAll();
+        return bookEntryAssembler.toCollectionModel(books);
     }
 
-    public List<BookItem> retrieveAllBookItems() {
-        return bookItemRepository.findAll();
+    public CollectionModel<BookItemDTO> retrieveAllBookItems() {
+        List<BookItem> items = bookItemRepository.findAll();
+        return bookItemAssembler.toCollectionModel(items);
     }
 
-    public void createBookInLibrary(BookItemDTO partialBookItemDTO) {
+    public BookItemDTO createBookInLibrary(BookItemDTO partialBookItemDTO) {
         BookEntry bookEntry = BookEntry.of(partialBookItemDTO.getBookInfo());
         Person person = Person.of(partialBookItemDTO.getOwner());
         BookItem bookItem = BookItem.of(bookEntry, person, partialBookItemDTO.getSerialNumber());
@@ -40,6 +52,8 @@ public class BookService {
         bookEntryRepository.save(bookEntry);
         personRepository.save(person);
         bookItemRepository.save(bookItem);
+
+        return bookItemAssembler.toModel(bookItem);
     }
 
 }
