@@ -10,7 +10,6 @@ import org.springframework.hateoas.CollectionModel;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.awt.print.Book;
 import java.util.UUID;
 
 @RestController
@@ -35,6 +34,6 @@ public class BookEntryRestController {
   @GetMapping("{uuid}")
   public BookEntryDTO retrieveBook(@PathVariable UUID uuid) throws Exception {
     logger.info("Retrieving Book Entry");
-    return bookService.retrieveBookEntry(uuid);
+    return bookService.retrieveBookEntryDTO(uuid);
   }
 }

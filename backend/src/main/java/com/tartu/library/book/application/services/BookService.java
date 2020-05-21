@@ -50,21 +50,25 @@ public class BookService {
     return bookItemAssembler.toModel(bookItem);
   }
 
-  public BookItemDTO retrieveBookItem(UUID uuid) {
-    BookItem item =
-        bookItemRepository
-            .findById(uuid)
-            .orElseThrow(
-                () -> new EntityNotFoundException(BookItem.class, "uuid", uuid.toString()));
+  public BookItemDTO retrieveBookItemDTO(UUID uuid) {
+    BookItem item = retrieveBookItem(uuid);
     return bookItemAssembler.toModel(item);
   }
 
-  public BookEntryDTO retrieveBookEntry(UUID uuid) {
-    BookEntry entry =
-        bookEntryRepository
-            .findById(uuid)
-            .orElseThrow(
-                () -> new EntityNotFoundException(BookEntry.class, "uuid", uuid.toString()));
+  public BookEntryDTO retrieveBookEntryDTO(UUID uuid) {
+    BookEntry entry = retrieveBookEntry(uuid);
     return bookEntryAssembler.toModel(entry);
+  }
+
+  private BookItem retrieveBookItem(UUID uuid) {
+    return bookItemRepository
+        .findById(uuid)
+        .orElseThrow(() -> new EntityNotFoundException(BookItem.class, "uuid", uuid.toString()));
+  }
+
+  private BookEntry retrieveBookEntry(UUID uuid) {
+    return bookEntryRepository
+        .findById(uuid)
+        .orElseThrow(() -> new EntityNotFoundException(BookEntry.class, "uuid", uuid.toString()));
   }
 }

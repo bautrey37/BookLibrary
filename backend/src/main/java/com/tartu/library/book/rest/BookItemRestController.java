@@ -30,6 +30,6 @@ public class BookItemRestController {
   @GetMapping("{uuid}")
   public BookItemDTO retrieveBookItem(@PathVariable UUID uuid) throws Exception {
     logger.info("Retrieving Book Item");
-    return bookService.retrieveBookItem(uuid);
+    return bookService.retrieveBookItemDTO(uuid);
   }
 }
