@@ -6,6 +6,7 @@ import com.tartu.library.book.domain.model.BookEntry;
 import com.tartu.library.book.domain.model.BookItem;
 import com.tartu.library.book.domain.repository.BookEntryRepository;
 import com.tartu.library.book.domain.repository.BookItemRepository;
+import com.tartu.library.common.application.exception.EntityNotFoundException;
 import com.tartu.library.person.domain.model.Person;
 import com.tartu.library.person.domain.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,19 +50,21 @@ public class BookService {
     return bookItemAssembler.toModel(bookItem);
   }
 
-  public BookItemDTO retrieveBookItem(UUID uuid) throws Exception {
+  public BookItemDTO retrieveBookItem(UUID uuid) {
     BookItem item =
         bookItemRepository
             .findById(uuid)
-            .orElseThrow(() -> new Exception("Book Item cannot be found"));
+            .orElseThrow(
+                () -> new EntityNotFoundException(BookItem.class, "uuid", uuid.toString()));
     return bookItemAssembler.toModel(item);
   }
 
-  public BookEntryDTO retrieveBookEntry(UUID uuid) throws Exception {
+  public BookEntryDTO retrieveBookEntry(UUID uuid) {
     BookEntry entry =
-            bookEntryRepository
-                    .findById(uuid)
-                    .orElseThrow(() -> new Exception("Book Entry cannot be found"));
+        bookEntryRepository
+            .findById(uuid)
+            .orElseThrow(
+                () -> new EntityNotFoundException(BookEntry.class, "uuid", uuid.toString()));
     return bookEntryAssembler.toModel(entry);
   }
 }
