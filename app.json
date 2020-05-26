@@ -36,7 +36,7 @@
       "quantity": 1
     }
   },
-  "name": "library",
+  "name": "book-library",
   "scripts": {
   },
   "stack": "heroku-18"

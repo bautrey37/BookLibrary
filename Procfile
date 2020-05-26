@@ -1,1 +1,1 @@
-web: java -Dserver.port=$PORT -jar target/library-0.0.1.jar
+web: java -Dserver.port=$PORT -jar backend/target/backend-0.0.1.jar
