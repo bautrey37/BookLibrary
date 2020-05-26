@@ -1,3 +1,7 @@
 
 server:
   port: 9000
+
+java:
+  runtime:
+    version: 13
