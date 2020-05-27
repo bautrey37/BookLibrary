@@ -6,9 +6,12 @@ import com.tartu.library.book.domain.model.BookEntry;
 import com.tartu.library.book.domain.model.BookItem;
 import com.tartu.library.book.domain.repository.BookEntryRepository;
 import com.tartu.library.book.domain.repository.BookItemRepository;
+import com.tartu.library.book.rest.BookEntryRestController;
 import com.tartu.library.common.application.exception.EntityNotFoundException;
 import com.tartu.library.person.domain.model.Person;
 import com.tartu.library.person.domain.repository.PersonRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,8 @@ import java.util.UUID;
 
 @Service
 public class BookService {
+  Logger logger = LoggerFactory.getLogger(BookService.class);
+
   @Autowired BookEntryRepository bookEntryRepository;
 
   @Autowired BookItemRepository bookItemRepository;
@@ -40,11 +45,11 @@ public class BookService {
 
   public BookItemDTO createBookInLibrary(BookItemDTO partialBookItemDTO) {
     BookEntry bookEntry = BookEntry.of(partialBookItemDTO.getBookInfo());
-    BookEntry bookEntryRepo = bookEntryRepository.findByName(bookEntry.getBookName());
-    if (!bookEntry.equals(bookEntryRepo)) {
-      bookEntryRepository.save(bookEntry);
+    if (bookEntryRepository.existsByName(bookEntry.getBookName())) {
+      logger.info(String.format("BookEntry already exists. Name: (%s)", bookEntry.getBookName()));
+      bookEntry = bookEntryRepository.findByName(bookEntry.getBookName());
     } else {
-      bookEntry = bookEntryRepo;
+      bookEntryRepository.save(bookEntry);
     }
 
     Person person = Person.of(partialBookItemDTO.getOwner());

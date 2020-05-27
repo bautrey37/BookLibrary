@@ -9,6 +9,10 @@ import java.util.UUID;
 
 @Repository
 public interface BookEntryRepository extends JpaRepository<BookEntry, UUID> {
-    @Query("select b from BookEntry b where b.bookName like %?1%")
-    public BookEntry findByName(String name);
+  @Query(
+      "select case when count(b)> 0 then true else false end from BookEntry b where b.bookName like %?1%")
+  boolean existsByName(String name);
+
+  @Query("select b from BookEntry b where b.bookName like %?1%")
+  BookEntry findByName(String bookName);
 }
