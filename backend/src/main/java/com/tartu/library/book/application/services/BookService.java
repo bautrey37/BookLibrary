@@ -40,10 +40,16 @@ public class BookService {
 
   public BookItemDTO createBookInLibrary(BookItemDTO partialBookItemDTO) {
     BookEntry bookEntry = BookEntry.of(partialBookItemDTO.getBookInfo());
+    BookEntry bookEntryRepo = bookEntryRepository.findByName(bookEntry.getBookName());
+    if (!bookEntry.equals(bookEntryRepo)) {
+      bookEntryRepository.save(bookEntry);
+    } else {
+      bookEntry = bookEntryRepo;
+    }
+
     Person person = Person.of(partialBookItemDTO.getOwner());
     BookItem bookItem = BookItem.of(bookEntry, person, partialBookItemDTO.getSerialNumber());
 
-    bookEntryRepository.save(bookEntry);
     personRepository.save(person);
     bookItemRepository.save(bookItem);
 
