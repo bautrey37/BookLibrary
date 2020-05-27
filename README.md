@@ -2,6 +2,7 @@
 
 [![Build Status](https://travis-ci.com/bautrey37/BookLibrary.svg?branch=master)](https://travis-ci.com/bautrey37/BookLibrary)
 [![versionjava](https://img.shields.io/badge/jdk-13-brightgreen.svg?logo=java)](https://github.com/spring-projects/spring-boot)
+[![Deployed on Heroku](https://img.shields.io/badge/heroku-deployed-blueviolet.svg?logo=heroku)](https://tartu-library.herokuapp.com/)
 
 #### Author: Brandon Autrey
 
@@ -36,6 +37,44 @@ library
 │ └── pom.xml
 └── pom.xml     → Maven parent pom managing both modules
 ```
+
+# Heroku
+
+Deployed at `https://tartu-library.herokuapp.com/`
+
+### Create Deployment 
+
+- `heroku login` 
+- `heroku create`
+- `git push heroku master`
+    - Pushes code to Heroku from master
+- `heroku ps:scale web=1` 
+- `heroku open`
+    - Opens new tab in browser to show app
+
+### Heroku useful commands
+
+- `git push heroku <branch>:master`
+    - Pushes branch/master to Heroku
+- `heroku git:remote --app my-app-name`
+    - Switch the remote Heroku is hooked too
+- `heroku pg:psql postgresql-globular-10076 --app tartu-library`
+    - Login to Postgres DB CLI
+- `heroku info`
+- `heroku config`
+- `heroku logs --tail`
+    - View only the tail of the logs on the server
+    
+### Postgres
+
+Useful commands:
+[Link](http://www.emblocsoft.com/About/PG/Useful-PostgreSQL-commands)
+-   `\dt` - show all tables in the current scheme
+    -   `\dt+` - show table sizes
+-   `\q` - quit psql
+-   `heroku pg:psql postgresql-globular-10076 --app tartu-library < src/main/resources/seed.sql`
+    -   run seed.sql file on the postgres database  
+
 
 ## Docker
 
