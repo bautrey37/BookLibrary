@@ -17,7 +17,7 @@ import java.util.UUID;
 public class BookEntryRestController {
   Logger logger = LoggerFactory.getLogger(BookEntryRestController.class);
 
-  BookService bookService;
+  @Autowired BookService bookService;
 
   @GetMapping
   public CollectionModel<BookEntryDTO> retrieveAllBooks() {
