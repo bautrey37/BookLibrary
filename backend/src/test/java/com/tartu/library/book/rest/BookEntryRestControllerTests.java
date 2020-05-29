@@ -2,7 +2,11 @@ package com.tartu.library.book.rest;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tartu.library.LibraryApplication;
+import com.tartu.library.book.application.dto.BookEntryDTO;
 import com.tartu.library.book.application.dto.BookItemDTO;
+import com.tartu.library.book.domain.repository.BookEntryRepository;
+import com.tartu.library.book.domain.repository.BookItemRepository;
+import com.tartu.library.person.application.dto.PersonDTO;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,6 +21,9 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import java.time.LocalDate;
+
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -28,6 +35,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.ANY)
 public class BookEntryRestControllerTests {
   private final String apiPath = "/api/book";
+
+  @Autowired
+  BookEntryRepository bookEntryRepository;
+
+  @Autowired
+  BookItemRepository bookItemRepository;
 
   @Autowired ObjectMapper mapper;
 
@@ -41,8 +54,11 @@ public class BookEntryRestControllerTests {
 
   @Test
   public void testCreateBook() throws Exception {
+    BookEntryDTO bookEntryDTO = BookEntryDTO.of(null, "test book", "test", LocalDate.now());
+    PersonDTO personDTO = PersonDTO.of("Test User", "test@test.com");
+    BookItemDTO bookItemDTO = BookItemDTO.of("1234", bookEntryDTO, personDTO);
 
-    BookItemDTO bookItemDTO = BookItemDTO.of("1234", null, null);
+    // create book 1
     mockMvc
         .perform(
             post(apiPath)
@@ -50,5 +66,24 @@ public class BookEntryRestControllerTests {
                 .contentType(MediaType.APPLICATION_JSON))
         .andDo(print())
         .andExpect(status().is2xxSuccessful());
+
+    // create book 2
+    mockMvc
+            .perform(
+                    post(apiPath)
+                            .content(mapper.writeValueAsString(bookItemDTO))
+                            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().is2xxSuccessful());
+
+    // create book 3
+    mockMvc
+            .perform(
+                    post(apiPath)
+                            .content(mapper.writeValueAsString(bookItemDTO))
+                            .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().is2xxSuccessful());
+
+    assertThat(bookEntryRepository.findAll().size()).isEqualTo(1);
+    assertThat(bookItemRepository.findAll().size()).isEqualTo(3);
     }
 }
