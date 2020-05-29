@@ -17,7 +17,7 @@ import java.util.UUID;
 public class BookEntryRestController {
   Logger logger = LoggerFactory.getLogger(BookEntryRestController.class);
 
-  @Autowired BookService bookService;
+  BookService bookService;
 
   @GetMapping
   public CollectionModel<BookEntryDTO> retrieveAllBooks() {
@@ -32,8 +32,8 @@ public class BookEntryRestController {
   }
 
   @GetMapping("{uuid}")
-  public BookEntryDTO retrieveBook(@PathVariable UUID uuid) throws Exception {
-    logger.info("Retrieving Book Entry");
+  public BookEntryDTO retrieveBook(@PathVariable UUID uuid) {
+    logger.info(String.format("Retrieving Book Entry (%s)", uuid.toString()));
     return bookService.retrieveBookEntryDTO(uuid);
   }
 }
