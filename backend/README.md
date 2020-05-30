@@ -150,6 +150,16 @@ Suberror field is either null or populated with errors associated with the main 
 -   ### `DELTETE /api/book/item/:id`   
 
     Deletes a single book item by ID.  API should be protected.
+    
+## Person
+
+-   ### `POST /api/person`
+
+    Create a new person.
+    
+-   ### `GET /api/person/:id`
+
+    Retrieves person by Id. 
 
 ## Borrow
 
