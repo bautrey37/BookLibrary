@@ -19,7 +19,7 @@ HELP.md
 .vscode/
 
 ### backend ###
-backend/src/main/resources/public/
+backend/src/main/resources/public/*
 backend/target
 
 ### frontend ###
