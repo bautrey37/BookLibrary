@@ -5,7 +5,7 @@
 
     <groupId>com.tartu</groupId>
     <artifactId>library</artifactId>
-    <version>0.0.1</version>
+    <version>0.1.0</version>
     <packaging>pom</packaging>
     <name>book-library</name>
     <description>Book Library with Spring Boot</description>
@@ -26,7 +26,7 @@
     </properties>
 
     <modules>
-<!--        <module>frontend</module>-->
+        <module>frontend</module>
         <module>backend</module>
     </modules>
 
