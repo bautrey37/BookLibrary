@@ -6,10 +6,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -28,8 +27,14 @@ public class BookItemRestController {
   }
 
   @GetMapping("{uuid}")
-  public BookItemDTO retrieveBookItem(@PathVariable UUID uuid) throws Exception {
-    logger.info("Retrieving Book Item");
-    return bookService.retrieveBookItem(uuid);
+  public BookItemDTO retrieveBookItem(@PathVariable UUID uuid) {
+    logger.info(String.format("Retrieving Book Item (%s)", uuid.toString()));
+    return bookService.retrieveBookItemDTO(uuid);
+  }
+
+  @DeleteMapping("{uuid}")
+  public ResponseEntity<BookItemDTO> deleteBookItem(@PathVariable UUID uuid) {
+    logger.info(String.format("Deleting Book Item (%s)", uuid.toString()));
+    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
   }
 }

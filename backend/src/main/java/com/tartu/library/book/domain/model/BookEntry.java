@@ -7,10 +7,7 @@ import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -21,13 +18,18 @@ import java.util.UUID;
 public class BookEntry {
   // International Standard Book Number
   String ISBN;
+
+  @Column(unique = true)
   String bookName;
+
   String author;
   LocalDate publishDate;
   Integer numberOfBookItems;
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id;
+
   @CreationTimestamp private LocalDateTime createDateTime;
   @UpdateTimestamp private LocalDateTime updatedDateTime;
 

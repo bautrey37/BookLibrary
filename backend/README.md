@@ -41,34 +41,6 @@ It should be able to keep track of multiple copies of the same book.  The borrow
 - Local DB is H2
 - Production DB on Heroku is Postgres
 
-# Heroku
-
-Deployed at `https://<create-app>.herokuapp.com/`
-
-### Create Deployment 
-
-* `heroku login` 
-* `heroku create`
-* `git push heroku master`
-    * Pushes code to Heroku from master
-* `heroku ps:scale web=1` 
-* `heroku open`
-    * Opens new tab in browser to show app
-
-### Heroku useful commands
-
-* `git push heroku <branch>:master`
-    * Pushes branch/master to Heroku
-* `heroku git:remote --app my-app-name`
-    * Switch the remote Heroku is hooked too
-* `heroku pg:psql postgresql-reticulated-84032 --app <create-app>`
-    * Login to Postgres DB CLI
-* `heroku info`
-* `heroku config`
-* `heroku logs --tail`
-    * View only the tail of the logs on the server
-
-
 # Domain Model
 
 Book Entry is the book type. Book item is the actual book with serial code to identify it.  There can be multiple book items for a book type.
@@ -167,6 +139,10 @@ Suberror field is either null or populated with errors associated with the main 
     
 ## Book Item
     
+-   ### `GET /api/book/item`
+
+    Retrieves all book items
+    
 -   ### `GET /api/book/item/:id`
 
     Retrieve a single book item by ID
@@ -174,6 +150,20 @@ Suberror field is either null or populated with errors associated with the main 
 -   ### `DELTETE /api/book/item/:id`   
 
     Deletes a single book item by ID.  API should be protected.
+    
+## Person
+
+-   ### `GET /api/person`
+
+    Retrieve all person;s
+
+-   ### `POST /api/person`
+
+    Create a new person.
+    
+-   ### `GET /api/person/:id`
+
+    Retrieves person by Id. 
 
 ## Borrow
 

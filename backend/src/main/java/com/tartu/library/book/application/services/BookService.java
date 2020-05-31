@@ -6,9 +6,12 @@ import com.tartu.library.book.domain.model.BookEntry;
 import com.tartu.library.book.domain.model.BookItem;
 import com.tartu.library.book.domain.repository.BookEntryRepository;
 import com.tartu.library.book.domain.repository.BookItemRepository;
+import com.tartu.library.book.rest.BookEntryRestController;
 import com.tartu.library.common.application.exception.EntityNotFoundException;
 import com.tartu.library.person.domain.model.Person;
 import com.tartu.library.person.domain.repository.PersonRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Service;
@@ -18,6 +21,8 @@ import java.util.UUID;
 
 @Service
 public class BookService {
+  Logger logger = LoggerFactory.getLogger(BookService.class);
+
   @Autowired BookEntryRepository bookEntryRepository;
 
   @Autowired BookItemRepository bookItemRepository;
@@ -40,31 +45,50 @@ public class BookService {
 
   public BookItemDTO createBookInLibrary(BookItemDTO partialBookItemDTO) {
     BookEntry bookEntry = BookEntry.of(partialBookItemDTO.getBookInfo());
-    Person person = Person.of(partialBookItemDTO.getOwner());
-    BookItem bookItem = BookItem.of(bookEntry, person, partialBookItemDTO.getSerialNumber());
+    if (bookEntryRepository.existsByName(bookEntry.getBookName())) {
+      logger.info(String.format("BookEntry already exists. Name: (%s)", bookEntry.getBookName()));
+      bookEntry = bookEntryRepository.findByName(bookEntry.getBookName());
+    } else {
+      bookEntryRepository.save(bookEntry);
+    }
 
-    bookEntryRepository.save(bookEntry);
-    personRepository.save(person);
+    Person person = null;
+    if (partialBookItemDTO.getOwner() != null) {
+      person = Person.of(partialBookItemDTO.getOwner());
+      if (!personRepository.existsByName(person.getName())) {
+        logger.info(String.format("Person already exists. Name: (%s)", person.getName()));
+        personRepository.save(person);
+      }
+      else {
+        person = personRepository.findByName(person.getName());
+      }
+    }
+
+    BookItem bookItem = BookItem.of(bookEntry, person, partialBookItemDTO.getSerialNumber());
     bookItemRepository.save(bookItem);
 
     return bookItemAssembler.toModel(bookItem);
   }
 
-  public BookItemDTO retrieveBookItem(UUID uuid) {
-    BookItem item =
-        bookItemRepository
-            .findById(uuid)
-            .orElseThrow(
-                () -> new EntityNotFoundException(BookItem.class, "uuid", uuid.toString()));
+  public BookItemDTO retrieveBookItemDTO(UUID uuid) {
+    BookItem item = retrieveBookItem(uuid);
     return bookItemAssembler.toModel(item);
   }
 
-  public BookEntryDTO retrieveBookEntry(UUID uuid) {
-    BookEntry entry =
-        bookEntryRepository
-            .findById(uuid)
-            .orElseThrow(
-                () -> new EntityNotFoundException(BookEntry.class, "uuid", uuid.toString()));
+  public BookEntryDTO retrieveBookEntryDTO(UUID uuid) {
+    BookEntry entry = retrieveBookEntry(uuid);
     return bookEntryAssembler.toModel(entry);
+  }
+
+  private BookItem retrieveBookItem(UUID uuid) {
+    return bookItemRepository
+        .findById(uuid)
+        .orElseThrow(() -> new EntityNotFoundException(BookItem.class, "uuid", uuid.toString()));
+  }
+
+  private BookEntry retrieveBookEntry(UUID uuid) {
+    return bookEntryRepository
+        .findById(uuid)
+        .orElseThrow(() -> new EntityNotFoundException(BookEntry.class, "uuid", uuid.toString()));
   }
 }

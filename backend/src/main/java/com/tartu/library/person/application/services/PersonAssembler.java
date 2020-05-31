@@ -15,7 +15,8 @@ public class PersonAssembler extends RepresentationModelAssemblerSupport<Person,
   @Override
   public PersonDTO toModel(Person person) {
     PersonDTO dto = createModelWithId(person.getId(), person);
-
+    dto.setName(person.getName());
+    dto.setEmail(person.getEmail());
     return dto;
   }
 }
