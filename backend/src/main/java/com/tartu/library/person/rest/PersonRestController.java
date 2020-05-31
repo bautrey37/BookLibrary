@@ -5,6 +5,7 @@ import com.tartu.library.person.application.services.PersonService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,6 +18,12 @@ public class PersonRestController {
 
   @Autowired
   PersonService personService;
+
+  @GetMapping
+  public CollectionModel<PersonDTO> retrieveAllPersons() {
+    logger.info("Retrieving all persons");
+    return personService.retrieveAllPersonDTO();
+  }
 
   @PostMapping
   public PersonDTO createPerson(@RequestBody @Validated PersonDTO personDTO) {

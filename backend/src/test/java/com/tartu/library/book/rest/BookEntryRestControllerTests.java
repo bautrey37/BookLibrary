@@ -7,6 +7,7 @@ import com.tartu.library.book.application.dto.BookItemDTO;
 import com.tartu.library.book.domain.repository.BookEntryRepository;
 import com.tartu.library.book.domain.repository.BookItemRepository;
 import com.tartu.library.person.application.dto.PersonDTO;
+import com.tartu.library.person.domain.repository.PersonRepository;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -42,6 +43,9 @@ public class BookEntryRestControllerTests {
   @Autowired
   BookItemRepository bookItemRepository;
 
+  @Autowired
+  PersonRepository personRepository;
+
   @Autowired ObjectMapper mapper;
 
   @Autowired private WebApplicationContext wac;
@@ -52,6 +56,9 @@ public class BookEntryRestControllerTests {
     this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
   }
 
+  /**
+   * Book Entry and Person should be be duplicated. Only one instance by name is allowed.
+   */
   @Test
   public void testCreateBook() throws Exception {
     BookEntryDTO bookEntryDTO = BookEntryDTO.of(null, "test book", "test", LocalDate.now());
@@ -85,5 +92,6 @@ public class BookEntryRestControllerTests {
 
     assertThat(bookEntryRepository.findAll().size()).isEqualTo(1);
     assertThat(bookItemRepository.findAll().size()).isEqualTo(3);
+    assertThat(personRepository.findAll().size()).isEqualTo(1);
     }
 }

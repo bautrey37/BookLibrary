@@ -5,8 +5,10 @@ import com.tartu.library.person.application.dto.PersonDTO;
 import com.tartu.library.person.domain.model.Person;
 import com.tartu.library.person.domain.repository.PersonRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -20,6 +22,11 @@ public class PersonService {
     Person person = Person.of(personDTO);
     personRepository.save(person);
     return personAssembler.toModel(person);
+  }
+
+  public CollectionModel<PersonDTO> retrieveAllPersonDTO() {
+    List<Person> persons = personRepository.findAll();
+    return personAssembler.toCollectionModel(persons);
   }
 
   public PersonDTO retrievePersonDTO(UUID uuid) {

@@ -153,6 +153,10 @@ Suberror field is either null or populated with errors associated with the main 
     
 ## Person
 
+-   ### `GET /api/person`
+
+    Retrieve all person;s
+
 -   ### `POST /api/person`
 
     Create a new person.

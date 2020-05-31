@@ -52,10 +52,19 @@ public class BookService {
       bookEntryRepository.save(bookEntry);
     }
 
-    Person person = Person.of(partialBookItemDTO.getOwner());
-    BookItem bookItem = BookItem.of(bookEntry, person, partialBookItemDTO.getSerialNumber());
+    Person person = null;
+    if (partialBookItemDTO.getOwner() != null) {
+      person = Person.of(partialBookItemDTO.getOwner());
+      if (!personRepository.existsByName(person.getName())) {
+        logger.info(String.format("Person already exists. Name: (%s)", person.getName()));
+        personRepository.save(person);
+      }
+      else {
+        person = personRepository.findByName(person.getName());
+      }
+    }
 
-    personRepository.save(person);
+    BookItem bookItem = BookItem.of(bookEntry, person, partialBookItemDTO.getSerialNumber());
     bookItemRepository.save(bookItem);
 
     return bookItemAssembler.toModel(bookItem);
