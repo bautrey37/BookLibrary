@@ -19,7 +19,7 @@ FROM openjdk:8-jdk-alpine
 VOLUME /tmp
 
 # Add Spring Boot app.jar to Container
-COPY --from=0 "library/target/library-0.0.1.jar" app.jar
+COPY --from=0 "library/target/library-0.1.0.jar" app.jar
 
 ENV JAVA_OPTS=""
 
