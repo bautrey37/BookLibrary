@@ -1,5 +1,4 @@
 HELP.md
-!.mvn/wrapper/maven-wrapper.jar
 
 ### STS ###
 .apt_generated
@@ -15,14 +14,6 @@ HELP.md
 *.iws
 *.iml
 *.ipr
-
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
-build/
 
 ### VS Code ###
 .vscode/
@@ -40,3 +31,5 @@ frontend/target
 frontend/test-output
 frontend/tests/e2e/reports
 frontend/tests/unit/coverage
+
+!.mvn/wrapper/maven-wrapper.jar
