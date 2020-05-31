@@ -11,9 +11,9 @@ import java.util.UUID;
 @Repository
 public interface PersonRepository extends JpaRepository<Person, UUID> {
   @Query(
-      "select case when count(b)> 0 then true else false end from Person b where b.name like %?1%")
+      "select case when count(p)> 0 then true else false end from Person p where p.name like %?1%")
   boolean existsByName(String name);
 
-  @Query("select b from Person b where b.name like %?1%")
+  @Query("select p from Person p where p.name like %?1%")
   Person findByName(String name);
 }
