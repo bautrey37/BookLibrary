@@ -30,5 +30,16 @@ build/
 ### VS Code ###
 .vscode/
 
+### backend ###
 backend/src/main/resources/public/
 backend/target
+
+### frontend ###
+frontend/dist/
+frontend/node/
+frontend/node_modules/
+frontend/npm-debug.log
+frontend/target
+frontend/test-output
+frontend/tests/e2e/reports
+frontend/tests/unit/coverage
