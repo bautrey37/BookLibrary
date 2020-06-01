@@ -1,14 +1,16 @@
 <template>
-  <div class="wrapper">
+  <div class="books">
     <b-table :data="books" :loading="loading">
       <template slot-scope="props">
-        <b-table-column field="bookName" label="BookName"
-        >{{ props.row.name }}
+        <b-table-column field="name" label="Book Name"
+        >{{ props.row.bookName }}
         </b-table-column>
-        <b-table-column field="description" label="Description"
-        >{{ props.row.description }}
+        <b-table-column field="author" label="Author"
+        >{{ props.row.author }}
         </b-table-column>
-        <!--                <b-table-column field="price" label="Price">{{props.row.price}}</b-table-column>-->
+        <b-table-column field="publishDate" label="Publish Date"
+        >{{ props.row.publishDate }}
+        </b-table-column>
         <b-table-column label="Borrow">
           <b-button @click="borrow(props.row._id)">Borrow</b-button>
         </b-table-column>
@@ -36,15 +38,20 @@
     data: () => {
       return {
         books: [],
+        // columns: [
+        //   { field: "name", label: "Book Name" },
+        //   { field: "author", label: "Author" }
+        // ],
         loading: false
       };
     },
     mounted: function () {
+      this.loading = true;
       return api
               .bookList()
               .then(data => {
                 this.books = data;
-                this.loading = true;
+                this.loading = false;
               })
               .catch(() => {
                 console.log("error");
