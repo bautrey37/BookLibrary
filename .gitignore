@@ -33,4 +33,3 @@ frontend/tests/e2e/reports
 frontend/tests/unit/coverage
 
 !.mvn/wrapper/maven-wrapper.jar
-/backend/src/main/resources/public/
