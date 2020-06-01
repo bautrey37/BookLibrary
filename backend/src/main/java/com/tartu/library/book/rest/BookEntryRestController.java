@@ -52,9 +52,9 @@ public class BookEntryRestController {
   }
 
   @GetMapping("{uuid}/items")
-  public CollectionModel<BookItemDTO> retrieveItemsFromEntry(@PathVariable UUID uuid) {
+  public CollectionModel<BookItemDTO> retrieveBookItemsByBookEntry(@PathVariable UUID uuid) {
     logger.info(String.format("Retrieving Book Items from Book Entry (%s)", uuid.toString()));
-    return null;
+    return bookService.retrieveBookItemsByBookEntry(uuid);
   }
 
 }

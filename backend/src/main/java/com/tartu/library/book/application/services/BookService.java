@@ -6,7 +6,6 @@ import com.tartu.library.book.domain.model.BookEntry;
 import com.tartu.library.book.domain.model.BookItem;
 import com.tartu.library.book.domain.repository.BookEntryRepository;
 import com.tartu.library.book.domain.repository.BookItemRepository;
-import com.tartu.library.book.rest.BookEntryRestController;
 import com.tartu.library.common.application.exception.EntityNotFoundException;
 import com.tartu.library.person.domain.model.Person;
 import com.tartu.library.person.domain.repository.PersonRepository;
@@ -80,15 +79,20 @@ public class BookService {
     return bookEntryAssembler.toModel(entry);
   }
 
+  public CollectionModel<BookItemDTO> retrieveBookItemsByBookEntry(UUID entry_uuid) {
+    List<BookItem> items = bookItemRepository.retrieveBookItemsByBookEntry(entry_uuid);
+    return bookItemAssembler.toCollectionModel(items);
+  }
+
   private BookItem retrieveBookItem(UUID uuid) {
     return bookItemRepository
-        .findById(uuid)
-        .orElseThrow(() -> new EntityNotFoundException(BookItem.class, "uuid", uuid.toString()));
+            .findById(uuid)
+            .orElseThrow(() -> new EntityNotFoundException(BookItem.class, "uuid", uuid.toString()));
   }
 
   private BookEntry retrieveBookEntry(UUID uuid) {
     return bookEntryRepository
-        .findById(uuid)
+            .findById(uuid)
         .orElseThrow(() -> new EntityNotFoundException(BookEntry.class, "uuid", uuid.toString()));
   }
 }
