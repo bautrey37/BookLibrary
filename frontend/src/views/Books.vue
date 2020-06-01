@@ -3,13 +3,13 @@
     <b-table :data="books" :loading="loading">
       <template slot-scope="props">
         <b-table-column field="name" label="Book Name"
-        >{{ props.row.bookName }}
+          >{{ props.row.bookName }}
         </b-table-column>
         <b-table-column field="author" label="Author"
-        >{{ props.row.author }}
+          >{{ props.row.author }}
         </b-table-column>
         <b-table-column field="publishDate" label="Publish Date"
-        >{{ props.row.publishDate }}
+          >{{ props.row.publishDate }}
         </b-table-column>
         <b-table-column label="Borrow">
           <b-button @click="borrow(props.row._id)">Borrow</b-button>
@@ -31,37 +31,36 @@
 </template>
 
 <script>
-  import api from "../lib/api";
+import api from "../lib/api";
 
-  export default {
-    name: "Books",
-    data: () => {
-      return {
-        books: [],
-        // columns: [
-        //   { field: "name", label: "Book Name" },
-        //   { field: "author", label: "Author" }
-        // ],
-        loading: false
-      };
-    },
-    mounted: function () {
-      this.loading = true;
-      return api
-              .bookList()
-              .then(data => {
-                this.books = data;
-                this.loading = false;
-              })
-              .catch(() => {
-                console.log("error");
-              });
-    },
-    methods: {
-      borrow: function () {
-      }
-    }
-  };
+export default {
+  name: "Books",
+  data: () => {
+    return {
+      books: [],
+      // columns: [
+      //   { field: "name", label: "Book Name" },
+      //   { field: "author", label: "Author" }
+      // ],
+      loading: false
+    };
+  },
+  mounted: function() {
+    this.loading = true;
+    return api
+      .bookList()
+      .then(data => {
+        this.books = data;
+        this.loading = false;
+      })
+      .catch(() => {
+        console.log("error");
+      });
+  },
+  methods: {
+    borrow: function() {}
+  }
+};
 </script>
 
 <style scoped></style>
