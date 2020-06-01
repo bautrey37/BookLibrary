@@ -55,12 +55,12 @@ public class BookService {
     Person person = null;
     if (partialBookItemDTO.getOwner() != null) {
       person = Person.of(partialBookItemDTO.getOwner());
-      if (!personRepository.existsByName(person.getName())) {
+      if (personRepository.existsByName(person.getName())) {
         logger.info(String.format("Person already exists. Name: (%s)", person.getName()));
-        personRepository.save(person);
+        person = personRepository.findByName(person.getName());
       }
       else {
-        person = personRepository.findByName(person.getName());
+        personRepository.save(person);
       }
     }
 
