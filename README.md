@@ -2,16 +2,28 @@
 
 [![Build Status](https://travis-ci.com/bautrey37/BookLibrary.svg?branch=master)](https://travis-ci.com/bautrey37/BookLibrary)
 [![Deployed on Heroku](https://img.shields.io/badge/heroku-deployed-blueviolet.svg?logo=heroku)](https://tartu-library.herokuapp.com/)
-[![versionspringboot](https://img.shields.io/badge/dynamic/xml?color=brightgreen&url=https://raw.githubusercontent.com/bautrey37/BookLibrary/master/pom.xml&query=%2F%2A%5Blocal-name%28%29%3D%27project%27%5D%2F%2A%5Blocal-name%28%29%3D%27parent%27%5D%2F%2A%5Blocal-name%28%29%3D%27version%27%5D&label=springboot)](https://github.com/spring-projects/spring-boot)
-[![versionjava](https://img.shields.io/badge/jdk-13-brightgreen.svg?logo=java)](https://github.com/spring-projects/spring-boot)
-[![versionvuejs](https://img.shields.io/badge/dynamic/json?color=brightgreen&url=https://raw.githubusercontent.com/bautrey37/BookLibrary/master/frontend/package.json&query=$.dependencies.vue&label=vue&logo=vue.js)](https://vuejs.org/)
-[![versionnodejs](https://img.shields.io/badge/dynamic/xml?color=brightgreen&url=https://raw.githubusercontent.com/bautrey37/BookLibrary/master/frontend/pom.xml&query=%2F%2A%5Blocal-name%28%29%3D%27project%27%5D%2F%2A%5Blocal-name%28%29%3D%27build%27%5D%2F%2A%5Blocal-name%28%29%3D%27plugins%27%5D%2F%2A%5Blocal-name%28%29%3D%27plugin%27%5D%2F%2A%5Blocal-name%28%29%3D%27executions%27%5D%2F%2A%5Blocal-name%28%29%3D%27execution%27%5D%2F%2A%5Blocal-name%28%29%3D%27configuration%27%5D%2F%2A%5Blocal-name%28%29%3D%27nodeVersion%27%5D&label=nodejs&logo=node.js)](https://nodejs.org/en/)
-[![versionwebpack](https://img.shields.io/badge/dynamic/json?color=brightgreen&url=https://raw.githubusercontent.com/bautrey37/BookLibrary/master/frontend/package-lock.json&query=$.dependencies.webpack.version&label=webpack&logo=webpack)](https://webpack.js.org/)
+[![License](http://img.shields.io/:license-mit-blue.svg)](https://github.com/bautrey37/BookLibrary/blob/master/LICENSE)
 
 #### Author: Brandon Autrey
 
-[![forthebadge](https://forthebadge.com/images/badges/made-with-java.svg)](https://forthebadge.com)
-[![forthebadge](https://forthebadge.com/images/badges/made-with-crayons.svg)](https://forthebadge.com)
+## Project setup
+
+[Backend README](backend/README.md)
+
+[Frontend README](frontend/README.md)
+
+```
+library
+├─┬ backend     → backend module with Spring Boot code
+│ ├── src
+│ └── pom.xml
+├─┬ frontend    → frontend module with Vue.js code
+│ ├── src
+│ └── pom.xml
+└── pom.xml     → Maven parent pom managing both modules
+```
+
+
 
 ## Motivation
 
@@ -29,22 +41,7 @@ Other members can borrow a book, which is then put into the system for the other
 1.  A member can write a review for a book. When the book is returned, the member that borrowed the book is prompted to write a review and will be marked as verified, as in they read the book.
 2.  A member can be put on a watch list for a book if the book is not available. When the book is returned, all the member who are watching the book are notified by email that the book is now available.
 
-## Project setup
 
-```
-library
-├─┬ backend     → backend module with Spring Boot code
-│ ├── src
-│ └── pom.xml
-├─┬ frontend    → frontend module with Vue.js code
-│ ├── src
-│ └── pom.xml
-└── pom.xml     → Maven parent pom managing both modules
-```
-
-[Backend README](backend/README.md)
-
-[Frontend README](frontend/README.md)
 
 # Deployment
 

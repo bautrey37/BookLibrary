@@ -1,12 +1,10 @@
 # Books Library Backend
 
-This is a practice project for the final of Enterprise Systems Integration Class.
+[![forthebadge](https://forthebadge.com/images/badges/made-with-java.svg)](https://forthebadge.com)
 
-The goal is to have the entire API navigable with HATEOAS. 
+## Goal
 
-## Author
-
-Brandon Autrey
+To have the entire API navigable with HATEOAS. A client does not need to know the API structure. From the first link, they will be able to navigate throughout the whole API with the links provided back by the server.
 
 ## Description
 
@@ -16,7 +14,7 @@ It should be able to keep track of multiple copies of the same book.  The borrow
 
 ## Configuration
 
--   Install Java 14
+-   [![versionjava](https://img.shields.io/badge/jdk-13-brightgreen.svg?logo=java)](https://github.com/spring-projects/spring-boot)
 -   Google Java Formatter plugin
 -   IntelliJ IDE
 -   Cool plugins:
@@ -25,7 +23,7 @@ It should be able to keep track of multiple copies of the same book.  The borrow
 
 ## Libraries:
 
--   Spring Boot 2.2.7
+-   [![versionspringboot](https://img.shields.io/badge/dynamic/xml?color=brightgreen&url=https://raw.githubusercontent.com/bautrey37/BookLibrary/master/pom.xml&query=%2F%2A%5Blocal-name%28%29%3D%27project%27%5D%2F%2A%5Blocal-name%28%29%3D%27parent%27%5D%2F%2A%5Blocal-name%28%29%3D%27version%27%5D&label=springboot)](https://github.com/spring-projects/spring-boot)
     -   cloud-connectors
     -   data-jpa
     -   HATEOAS
@@ -92,7 +90,7 @@ Fields:
 
 ## Sequence Diagram
 
-[createBook diagram](https://app.lucidchart.com/publicSegments/view/82312fe8-f152-4964-b5f7-3fcb3f954364/image.png)
+![createBook diagram](https://app.lucidchart.com/publicSegments/view/82312fe8-f152-4964-b5f7-3fcb3f954364/image.png)
 
 ([edit](https://app.lucidchart.com/invitations/accept/0d4bae44-7fee-4c91-b27a-cf4a7934029d))
 
