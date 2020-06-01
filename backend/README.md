@@ -47,8 +47,9 @@ Book Entry is the book type. Book item is the actual book with serial code to id
 A borrower borrows a book item, which has a book type. 
 When a borrower returns the book they can leave of review, consisting of a rate, text, and borrower information.
 
-Books are listed shown by the book entry and they will return back a count of how many of available and taken.  This will show who has taken and when.
+![domain model](https://app.lucidchart.com/publicSegments/view/46558cc8-ef93-47fc-ae58-9c857b74e2ed/image.png)
 
+([edit](https://app.lucidchart.com/invitations/accept/caa84f8a-745d-4361-8ca2-80775415196a))
 
 ### Book Entry
 
@@ -88,6 +89,12 @@ Fields:
 -   Draft (Boolean)
 -   Book Entry (ManyToOne)
 -   Person (OneToOne)
+
+## Sequence Diagram
+
+[createBook diagram](https://app.lucidchart.com/publicSegments/view/82312fe8-f152-4964-b5f7-3fcb3f954364/image.png)
+
+([edit](https://app.lucidchart.com/invitations/accept/0d4bae44-7fee-4c91-b27a-cf4a7934029d))
 
 # API
 
@@ -192,6 +199,4 @@ Suberror field is either null or populated with errors associated with the main 
 
     Create review of the Book Entry that was previously borrowed. After borrowing, an unpublished draft review is already created with borrower information.
     If the ID matches an unpublished review, then the review will be updated on that review.
-
-# Future Work
 

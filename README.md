@@ -42,9 +42,13 @@ library
 └── pom.xml     → Maven parent pom managing both modules
 ```
 
-# Heroku
+[Backend README](backend/README.md)
 
-Deployed at `https://tartu-library.herokuapp.com/`
+[Frontend README](frontend/README.md)
+
+# Deployment
+
+Deployed at Heroku at: `https://tartu-library.herokuapp.com/`
 
 ### Create Deployment 
 
@@ -54,7 +58,7 @@ Deployed at `https://tartu-library.herokuapp.com/`
     - Pushes code to Heroku from master
 - `heroku ps:scale web=1` 
 - `heroku open`
-    - Opens new tab in browser to show app
+    - Open new tab in the browser to show app
 
 ### Heroku useful commands
 
