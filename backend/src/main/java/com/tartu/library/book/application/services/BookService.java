@@ -57,8 +57,7 @@ public class BookService {
       if (personRepository.existsByName(person.getName())) {
         logger.info(String.format("Person already exists. Name: (%s)", person.getName()));
         person = personRepository.findByName(person.getName());
-      }
-      else {
+      } else {
         personRepository.save(person);
       }
     }
@@ -86,13 +85,13 @@ public class BookService {
 
   private BookItem retrieveBookItem(UUID uuid) {
     return bookItemRepository
-            .findById(uuid)
-            .orElseThrow(() -> new EntityNotFoundException(BookItem.class, "uuid", uuid.toString()));
+        .findById(uuid)
+        .orElseThrow(() -> new EntityNotFoundException(BookItem.class, "uuid", uuid.toString()));
   }
 
   private BookEntry retrieveBookEntry(UUID uuid) {
     return bookEntryRepository
-            .findById(uuid)
+        .findById(uuid)
         .orElseThrow(() -> new EntityNotFoundException(BookEntry.class, "uuid", uuid.toString()));
   }
 }

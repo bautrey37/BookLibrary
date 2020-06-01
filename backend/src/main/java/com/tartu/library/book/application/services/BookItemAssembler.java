@@ -36,18 +36,19 @@ public class BookItemAssembler extends RepresentationModelAssemblerSupport<BookI
     switch (bookItem.getStatus()) {
       case AVAILABLE:
         dto.add(
-                linkTo(methodOn(BookItemRestController.class).borrowBook(bookItem.getId()))
-                        .withRel("borrow")
-                        .withType(HttpMethod.PATCH.toString()));
+            linkTo(methodOn(BookItemRestController.class).borrowBook(bookItem.getId()))
+                .withRel("borrow")
+                .withType(HttpMethod.PATCH.toString()));
         break;
       case BORROWED:
         dto.add(
-                linkTo(methodOn(BookItemRestController.class).returnBook(bookItem.getId()))
-                        .withRel("return")
-                        .withType(HttpMethod.PATCH.toString()));
+            linkTo(methodOn(BookItemRestController.class).returnBook(bookItem.getId()))
+                .withRel("return")
+                .withType(HttpMethod.PATCH.toString()));
       default:
         break;
-//              throw new IllegalArgumentException(String.format("Status not available.  Status: (%s)", bookItem.getStatus()))
+        //              throw new IllegalArgumentException(String.format("Status not available.
+        // Status: (%s)", bookItem.getStatus()))
     }
 
     return dto;

@@ -56,5 +56,4 @@ public class BookEntryRestController {
     logger.info(String.format("Retrieving Book Items from Book Entry (%s)", uuid.toString()));
     return bookService.retrieveBookItemsByBookEntry(uuid);
   }
-
 }

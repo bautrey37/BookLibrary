@@ -41,10 +41,10 @@ class HypermediaConfiguration {
      */
     @Override
     public Object postProcessBeforeInitialization(Object bean, String beanName)
-            throws BeansException {
+        throws BeansException {
       if (bean instanceof ObjectMapper
-              && beanName.startsWith("_hal")
-              && beanName.endsWith("Mapper")) {
+          && beanName.startsWith("_hal")
+          && beanName.endsWith("Mapper")) {
         postProcessHalObjectMapper((ObjectMapper) bean);
       }
       return bean;
@@ -53,7 +53,7 @@ class HypermediaConfiguration {
     private void postProcessHalObjectMapper(ObjectMapper objectMapper) {
       try {
         Jackson2ObjectMapperBuilder builder =
-                this.beanFactory.getBean(Jackson2ObjectMapperBuilder.class);
+            this.beanFactory.getBean(Jackson2ObjectMapperBuilder.class);
         builder.configure(objectMapper);
       } catch (NoSuchBeanDefinitionException ex) {
         // No Jackson configuration required

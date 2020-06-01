@@ -16,8 +16,7 @@ import java.util.UUID;
 public class PersonRestController {
   Logger logger = LoggerFactory.getLogger(PersonRestController.class);
 
-  @Autowired
-  PersonService personService;
+  @Autowired PersonService personService;
 
   @GetMapping
   public CollectionModel<PersonDTO> retrieveAllPersons() {

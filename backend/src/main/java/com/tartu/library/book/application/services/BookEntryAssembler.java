@@ -26,7 +26,9 @@ public class BookEntryAssembler
     dto.setISBN(bookEntry.getISBN());
 
     dto.add(
-            linkTo(methodOn(BookEntryRestController.class).retrieveBookItemsByBookEntry(bookEntry.getId()))
+        linkTo(
+                methodOn(BookEntryRestController.class)
+                    .retrieveBookItemsByBookEntry(bookEntry.getId()))
             .withRel("items")
             .withType(HttpMethod.GET.toString()));
     return dto;
