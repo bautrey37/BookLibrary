@@ -1,6 +1,5 @@
 package com.tartu.library.person.application.services;
 
-import com.tartu.library.book.application.services.BookService;
 import com.tartu.library.common.application.exception.EntityNotFoundException;
 import com.tartu.library.person.application.dto.PersonDTO;
 import com.tartu.library.person.domain.model.Person;
@@ -27,8 +26,7 @@ public class PersonService {
     if (personRepository.existsByName(person.getName())) {
       logger.info(String.format("Person already exists. Name: (%s)", person.getName()));
       person = personRepository.findByName(person.getName());
-    }
-    else {
+    } else {
       personRepository.save(person);
     }
     return personAssembler.toModel(person);

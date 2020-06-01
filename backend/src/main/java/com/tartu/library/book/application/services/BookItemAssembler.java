@@ -6,7 +6,11 @@ import com.tartu.library.book.rest.BookItemRestController;
 import com.tartu.library.person.application.services.PersonAssembler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.server.mvc.RepresentationModelAssemblerSupport;
+import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Component;
+
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.linkTo;
+import static org.springframework.hateoas.server.mvc.WebMvcLinkBuilder.methodOn;
 
 @Component
 public class BookItemAssembler extends RepresentationModelAssemblerSupport<BookItem, BookItemDTO> {
@@ -26,6 +30,23 @@ public class BookItemAssembler extends RepresentationModelAssemblerSupport<BookI
     dto.setSerialNumber(bookItem.getSerialNumber());
     if (bookItem.getOwner() != null) {
       dto.setOwner(personAssembler.toModel(bookItem.getOwner()));
+    }
+    dto.setStatus(bookItem.getStatus());
+
+    switch (bookItem.getStatus()) {
+      case AVAILABLE:
+        dto.add(
+                linkTo(methodOn(BookItemRestController.class).borrowBook(bookItem.getId()))
+                        .withRel("borrow")
+                        .withType(HttpMethod.PATCH.toString()));
+
+      case BORROWED:
+        dto.add(
+                linkTo(methodOn(BookItemRestController.class).returnBook(bookItem.getId()))
+                        .withRel("return")
+                        .withType(HttpMethod.PATCH.toString()));
+      default:
+        break;
     }
 
     return dto;
