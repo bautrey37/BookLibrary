@@ -17,12 +17,17 @@ import java.util.UUID;
 @NoArgsConstructor(force = true, access = AccessLevel.PROTECTED)
 public class BookItem {
   String serialNumber;
+
+  @Enumerated(EnumType.STRING)
   BookStatus status;
+
   @OneToOne Person Owner;
   @ManyToOne BookEntry bookInfo;
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id;
+
   @CreationTimestamp private LocalDateTime createDateTime;
   @UpdateTimestamp private LocalDateTime updatedDateTime;
 

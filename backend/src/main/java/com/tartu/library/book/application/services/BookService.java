@@ -6,7 +6,6 @@ import com.tartu.library.book.domain.model.BookEntry;
 import com.tartu.library.book.domain.model.BookItem;
 import com.tartu.library.book.domain.repository.BookEntryRepository;
 import com.tartu.library.book.domain.repository.BookItemRepository;
-import com.tartu.library.book.rest.BookEntryRestController;
 import com.tartu.library.common.application.exception.EntityNotFoundException;
 import com.tartu.library.person.domain.model.Person;
 import com.tartu.library.person.domain.repository.PersonRepository;
@@ -55,12 +54,11 @@ public class BookService {
     Person person = null;
     if (partialBookItemDTO.getOwner() != null) {
       person = Person.of(partialBookItemDTO.getOwner());
-      if (!personRepository.existsByName(person.getName())) {
+      if (personRepository.existsByName(person.getName())) {
         logger.info(String.format("Person already exists. Name: (%s)", person.getName()));
-        personRepository.save(person);
-      }
-      else {
         person = personRepository.findByName(person.getName());
+      } else {
+        personRepository.save(person);
       }
     }
 
@@ -78,6 +76,11 @@ public class BookService {
   public BookEntryDTO retrieveBookEntryDTO(UUID uuid) {
     BookEntry entry = retrieveBookEntry(uuid);
     return bookEntryAssembler.toModel(entry);
+  }
+
+  public CollectionModel<BookItemDTO> retrieveBookItemsByBookEntry(UUID entry_uuid) {
+    List<BookItem> items = bookItemRepository.retrieveBookItemsByBookEntry(entry_uuid);
+    return bookItemAssembler.toCollectionModel(items);
   }
 
   private BookItem retrieveBookItem(UUID uuid) {

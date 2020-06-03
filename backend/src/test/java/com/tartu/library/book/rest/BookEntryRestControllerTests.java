@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tartu.library.LibraryApplication;
 import com.tartu.library.book.application.dto.BookEntryDTO;
 import com.tartu.library.book.application.dto.BookItemDTO;
+import com.tartu.library.book.domain.model.BookStatus;
 import com.tartu.library.book.domain.repository.BookEntryRepository;
 import com.tartu.library.book.domain.repository.BookItemRepository;
 import com.tartu.library.person.application.dto.PersonDTO;
@@ -63,7 +64,7 @@ public class BookEntryRestControllerTests {
   public void testCreateBook() throws Exception {
     BookEntryDTO bookEntryDTO = BookEntryDTO.of(null, "test book", "test", LocalDate.now());
     PersonDTO personDTO = PersonDTO.of("Test User", "test@test.com");
-    BookItemDTO bookItemDTO = BookItemDTO.of("1234", bookEntryDTO, personDTO);
+    BookItemDTO bookItemDTO = BookItemDTO.of("1234", bookEntryDTO, personDTO, BookStatus.AVAILABLE);
 
     // create book 1
     mockMvc
