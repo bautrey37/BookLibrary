@@ -13,8 +13,8 @@
 	</parent>
 
 	<properties>
-		<java.version>13</java.version>
-		<maven.compiler.release>13</maven.compiler.release>
+		<java.version>14</java.version>
+		<maven.compiler.release>14</maven.compiler.release>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 <!--		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>-->
 
@@ -112,7 +112,11 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<release>13</release>
+<!--					<source>14</source>-->
+<!--					<target>14</target>-->
+					<release>14</release>
+					<forceJavacCompilerUse>true</forceJavacCompilerUse>
+					<parameters>true</parameters>
 				</configuration>
 			</plugin>
 			<plugin>

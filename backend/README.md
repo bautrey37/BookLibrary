@@ -14,7 +14,7 @@ It should be able to keep track of multiple copies of the same book.  The borrow
 
 ## Configuration
 
--   [![versionjava](https://img.shields.io/badge/jdk-13-brightgreen.svg?logo=java)](https://github.com/spring-projects/spring-boot)
+-   [![versionjava](https://img.shields.io/badge/jdk-14-brightgreen.svg?logo=java)](https://github.com/spring-projects/spring-boot)
 -   Google Java Formatter plugin
 -   IntelliJ IDE
 -   Cool plugins:
