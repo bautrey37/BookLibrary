@@ -4,6 +4,8 @@ import com.tartu.library.common.application.exception.EntityNotFoundException;
 import com.tartu.library.person.application.dto.PersonDTO;
 import com.tartu.library.person.domain.model.Person;
 import com.tartu.library.person.domain.repository.PersonRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.stereotype.Service;
@@ -13,6 +15,7 @@ import java.util.UUID;
 
 @Service
 public class PersonService {
+  Logger logger = LoggerFactory.getLogger(PersonService.class);
 
   @Autowired PersonRepository personRepository;
 
@@ -20,7 +23,12 @@ public class PersonService {
 
   public PersonDTO createPerson(PersonDTO personDTO) {
     Person person = Person.of(personDTO);
-    personRepository.save(person);
+    if (personRepository.existsByName(person.getName())) {
+      logger.info(String.format("Person already exists. Name: (%s)", person.getName()));
+      person = personRepository.findByName(person.getName());
+    } else {
+      personRepository.save(person);
+    }
     return personAssembler.toModel(person);
   }
 

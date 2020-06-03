@@ -37,4 +37,16 @@ public class BookItemRestController {
     logger.info(String.format("Deleting Book Item (%s)", uuid.toString()));
     return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
   }
+
+  @PatchMapping("{uuid}/borrow")
+  public ResponseEntity<BookItemDTO> borrowBook(@PathVariable UUID uuid) {
+    logger.info(String.format("Borrowing Book Item (%s)", uuid.toString()));
+    return null;
+  }
+
+  @PatchMapping("{uuid}/return")
+  public ResponseEntity<BookItemDTO> returnBook(@PathVariable UUID uuid) {
+    logger.info(String.format("Returning Book Item (%s)", uuid.toString()));
+    return null;
+  }
 }

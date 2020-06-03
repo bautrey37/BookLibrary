@@ -50,4 +50,10 @@ public class BookEntryRestController {
     logger.info(String.format("Deleting Book Entry (%s)", uuid.toString()));
     return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
   }
+
+  @GetMapping("{uuid}/items")
+  public CollectionModel<BookItemDTO> retrieveBookItemsByBookEntry(@PathVariable UUID uuid) {
+    logger.info(String.format("Retrieving Book Items from Book Entry (%s)", uuid.toString()));
+    return bookService.retrieveBookItemsByBookEntry(uuid);
+  }
 }

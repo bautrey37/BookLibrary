@@ -1,5 +1,6 @@
 package com.tartu.library.book.application.dto;
 
+import com.tartu.library.book.domain.model.BookStatus;
 import com.tartu.library.person.application.dto.PersonDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -17,4 +18,5 @@ public class BookItemDTO extends RepresentationModel<BookItemDTO> {
   String serialNumber;
   @NotNull BookEntryDTO bookInfo;
   PersonDTO owner;
+  BookStatus status;
 }
