@@ -114,8 +114,7 @@
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
 					<release>14</release>
-					<forceJavacCompilerUse>true</forceJavacCompilerUse>
-					<parameters>true</parameters>
+					<compilerArgs>--enable-preview</compilerArgs>
 				</configuration>
 			</plugin>
 			<plugin>
