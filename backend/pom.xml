@@ -115,6 +115,14 @@
 				<configuration>
 					<release>14</release>
 					<compilerArgs>--enable-preview</compilerArgs>
+					<forceJavacCompilerUse>true</forceJavacCompilerUse>
+					<parameters>true</parameters>
+				</configuration>
+			</plugin>
+			<plugin>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<configuration>
+					<argLine>--enable-preview</argLine>
 				</configuration>
 			</plugin>
 			<plugin>
