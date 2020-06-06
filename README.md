@@ -67,6 +67,9 @@ Deployed at Heroku at: `https://tartu-library.herokuapp.com/`
     - Login to Postgres DB CLI
 - `heroku info`
 - `heroku config`
+    - Set config variables
+    - `heroku config:set _JAVA_OPTIONS="--enable-preview -XX:+ShowCodeDetailsInExceptionMessages"`
+        - Sets the java preview features to be ran with app
 - `heroku logs --tail`
     - View only the tail of the logs on the server
     
