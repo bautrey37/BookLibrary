@@ -21,7 +21,8 @@ public class BookItem {
   @Enumerated(EnumType.STRING)
   BookStatus status;
 
-  @OneToOne Person Owner;
+  @OneToOne Person owner;
+  @OneToOne Person borrower;
   @ManyToOne BookEntry bookInfo;
 
   @Id

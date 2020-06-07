@@ -1,6 +1,7 @@
 package com.tartu.library.common.rest;
 
 import com.tartu.library.common.application.exception.EntityNotFoundException;
+import com.tartu.library.common.application.exception.InvalidBookStatusException;
 import com.tartu.library.common.application.exception.ValidationErrorException;
 import com.tartu.library.common.application.exception.apierror.ApiError;
 import lombok.extern.slf4j.Slf4j;
@@ -251,6 +252,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
       apiError.addValidationGlobalErrors(BR.getGlobalErrors());
     }
 
+    return buildResponseEntity(apiError);
+  }
+
+  @ExceptionHandler(InvalidBookStatusException.class)
+  public ResponseEntity<Object> handleInvalidBookStatusException(InvalidBookStatusException ex) {
+    ApiError apiError = new ApiError(BAD_REQUEST);
+    apiError.setMessage(ex.getMessage());
     return buildResponseEntity(apiError);
   }
 }

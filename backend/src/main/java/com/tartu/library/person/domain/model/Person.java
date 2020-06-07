@@ -28,9 +28,13 @@ public class Person {
   @UpdateTimestamp private LocalDateTime updatedDateTime;
 
   public static Person of(PersonDTO personDTO) {
+    return of(personDTO.getName(), personDTO.getEmail());
+  }
+
+  public static Person of(String name, String email) {
     Person p = new Person();
-    p.setName(personDTO.getName());
-    p.setEmail(personDTO.getEmail());
+    p.setName(name);
+    p.setEmail(email);
     return p;
   }
 }

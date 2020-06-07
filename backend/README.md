@@ -45,7 +45,7 @@ Book Entry is the book type. Book item is the actual book with serial code to id
 A borrower borrows a book item, which has a book type. 
 When a borrower returns the book they can leave of review, consisting of a rate, text, and borrower information.
 
-![domain model](https://app.lucidchart.com/publicSegments/view/46558cc8-ef93-47fc-ae58-9c857b74e2ed/image.png)
+![domain model](https://app.lucidchart.com/publicSegments/view/5fea11c4-a3c9-4cc2-b6b0-ec44ce5f6193/image.png)
 
 ([edit](https://app.lucidchart.com/invitations/accept/caa84f8a-745d-4361-8ca2-80775415196a))
 
@@ -64,20 +64,25 @@ If only ISBN is posted, then the other book information will be pulled. If no IS
 Fields:
 -   Owner (OneToOne) as Person
 -   Book Entry (ManyToOne)
--   Status??
+-   Book Status
+
+### Book Status Enum
+
+-   States: AVAILABLE, BORROWED
+
+### Borrow Log
+
+Fields:
+-   Book Item (One to One)
+-   Borrower (One to One) as Person
+-   Borrow date
+-   Return Date
 
 ### Person
 
 Fields:
 -   Name
 -   E-mail
-
-### Borrow
-
-Fields:
--   Status??
--   Person (OneToOne)
--   Book Item (OneToOne)
 
 ### Review
 
@@ -156,6 +161,24 @@ Suberror field is either null or populated with errors associated with the main 
 
     Deletes a single book item by ID.  API should be protected.
     
+-   ### `POST /api/book/item/:id/borrow`
+
+    Borrow a book.  Needs to submit identifying information such as name of person.  
+    The date will be populated automatically of the borrowed book.
+    The borrower will borrow a book item as that represents the actual physical book.
+    Creates a Borrow Log entry. 
+
+-   ### `POST /api/book/item/:id/return`
+
+    Returns a book to the library. 
+    Will receive the option to submit a review.  Borrowers information is already populated in unpublished review.  Link to do review will be sent back with HATEOAS.
+    Creates a Borrow Log entry
+    
+-   ### `GET /api/book/item/:id/logs`
+
+    Retrieves all the Borrow Log entries for this Book Item which are creating by borrowing and returning books. 
+
+    
 ## Person
 
 -   ### `GET /api/person`
@@ -170,18 +193,6 @@ Suberror field is either null or populated with errors associated with the main 
 
     Retrieves person by Id. 
 
-## Borrow
-
--   ### `POST /api/book/borrow`
-
-    Borrow a book.  Needs to submit identifying information such as name of person.  
-    The date will be populated automatically of the borrowed book.
-    The borrower will borrow a book item as that represents the actual physical book. 
-
--   ### `POST /api/book/return`
-
-    Returns a book to the library. 
-    Will receive the option to submit a review.  Borrowers information is already populated in unpublished review.  Link to do review will be sent back with HATEOAS.
 
 ## Review
 
