@@ -60,12 +60,18 @@ public class BookEntryRestControllerTests {
     this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
   }
 
-  /** Book Entry and Person should not slbe duplicated. Only one instance by name is allowed. */
+  /** Book Entry and Person should not be duplicated. Only one instance by name is allowed. */
   @Test
   public void testCreateBook() throws Exception {
     BookEntryDTO bookEntryDTO = BookEntryDTO.of(null, "test book", "test", LocalDate.now());
     PersonDTO personDTO = PersonDTO.of("Test User", "test@test.com");
-    BookItemDTO bookItemDTO = BookItemDTO.of("1234", bookEntryDTO, personDTO, BookStatus.AVAILABLE);
+    BookItemDTO bookItemDTO =
+        BookItemDTO.builder()
+            .serialNumber("1234")
+            .bookInfo(bookEntryDTO)
+            .owner(personDTO)
+            .status(BookStatus.AVAILABLE)
+            .build();
 
     // create book 1
     mockMvc
@@ -119,7 +125,11 @@ public class BookEntryRestControllerTests {
             .andExpect(status().is2xxSuccessful())
             .andReturn();
 
-    JsonNode responseDTOs = mapper.readTree(result.getResponse().getContentAsString()).get("_embedded").get("bookItemDTOList");
+    JsonNode responseDTOs =
+        mapper
+            .readTree(result.getResponse().getContentAsString())
+            .get("_embedded")
+            .get("bookItemDTOList");
     assertThat(responseDTOs.toString()).doesNotContain(entry2.getBookName());
 
     BookItemDTO itemDTO = mapper.readValue(responseDTOs.get(0).toString(), BookItemDTO.class);

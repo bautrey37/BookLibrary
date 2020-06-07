@@ -31,6 +31,9 @@ public class BookItemAssembler extends RepresentationModelAssemblerSupport<BookI
     if (bookItem.getOwner() != null) {
       dto.setOwner(personAssembler.toModel(bookItem.getOwner()));
     }
+    if (bookItem.getBorrower() != null) {
+      dto.setBorrower(personAssembler.toModel(bookItem.getBorrower()));
+    }
     dto.setStatus(bookItem.getStatus());
 
     switch (bookItem.getStatus()) {
