@@ -27,26 +27,19 @@ import java.util.UUID;
 public class BookService {
   Logger logger = LoggerFactory.getLogger(BookService.class);
 
-  @Autowired
-  BookEntryRepository bookEntryRepository;
+  @Autowired BookEntryRepository bookEntryRepository;
 
-  @Autowired
-  BookItemRepository bookItemRepository;
+  @Autowired BookItemRepository bookItemRepository;
 
-  @Autowired
-  BorrowLogRepository borrowLogRepository;
+  @Autowired BorrowLogRepository borrowLogRepository;
 
-  @Autowired
-  BookEntryAssembler bookEntryAssembler;
+  @Autowired BookEntryAssembler bookEntryAssembler;
 
-  @Autowired
-  BookItemAssembler bookItemAssembler;
+  @Autowired BookItemAssembler bookItemAssembler;
 
-  @Autowired
-  BorrowLogAssembler borrowLogAssembler;
+  @Autowired BorrowLogAssembler borrowLogAssembler;
 
-  @Autowired
-  PersonService personService;
+  @Autowired PersonService personService;
 
   public CollectionModel<BookEntryDTO> retrieveAllBooks() {
     List<BookEntry> books = bookEntryRepository.findAll();
@@ -91,7 +84,7 @@ public class BookService {
   }
 
   public BookItemDTO borrowBook(UUID book_item_uuid, UUID person_uuid)
-          throws InvalidBookStatusException {
+      throws InvalidBookStatusException {
     BookItem item = retrieveBookItem(book_item_uuid);
     if (item.getStatus() == BookStatus.BORROWED) {
       throw new InvalidBookStatusException("Cannot borrow book already borrowed.");
@@ -133,13 +126,13 @@ public class BookService {
 
   private BookItem retrieveBookItem(UUID uuid) {
     return bookItemRepository
-            .findById(uuid)
-            .orElseThrow(() -> new EntityNotFoundException(BookItem.class, "uuid", uuid.toString()));
+        .findById(uuid)
+        .orElseThrow(() -> new EntityNotFoundException(BookItem.class, "uuid", uuid.toString()));
   }
 
   private BookEntry retrieveBookEntry(UUID uuid) {
     return bookEntryRepository
-            .findById(uuid)
+        .findById(uuid)
         .orElseThrow(() -> new EntityNotFoundException(BookEntry.class, "uuid", uuid.toString()));
   }
 }

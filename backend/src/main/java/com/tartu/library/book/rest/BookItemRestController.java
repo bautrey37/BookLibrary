@@ -41,7 +41,8 @@ public class BookItemRestController {
   }
 
   @PatchMapping("{uuid}/borrow")
-  public BookItemDTO borrowBook(@PathVariable UUID uuid, @RequestParam UUID person_uuid) throws InvalidBookStatusException {
+  public BookItemDTO borrowBook(@PathVariable UUID uuid, @RequestParam UUID person_uuid)
+      throws InvalidBookStatusException {
     logger.info(String.format("Borrowing Book Item (%s)", uuid.toString()));
     return bookService.borrowBook(uuid, person_uuid);
   }
@@ -57,5 +58,4 @@ public class BookItemRestController {
     logger.info(String.format("Retrieving Borrow Logs from Book Item (%s)", uuid.toString()));
     return bookService.retrieveBorrowLogsByBookItem(uuid);
   }
-
 }

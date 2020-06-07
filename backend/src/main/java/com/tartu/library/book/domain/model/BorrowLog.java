@@ -14,14 +14,10 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor(force = true, access = AccessLevel.PROTECTED)
 public class BorrowLog {
-  @OneToOne
-  BookItem item;
-  @OneToOne
-  Person borrower;
-  @CreationTimestamp
-  private LocalDateTime createDateTime;
+  @OneToOne BookItem item;
+  @OneToOne Person borrower;
   BookStatus status;
-
+  @CreationTimestamp private LocalDateTime createDateTime;
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id;

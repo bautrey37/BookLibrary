@@ -256,8 +256,7 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
   }
 
   @ExceptionHandler(InvalidBookStatusException.class)
-  public ResponseEntity<Object> handleInvalidBookStatusException(
-          InvalidBookStatusException ex) {
+  public ResponseEntity<Object> handleInvalidBookStatusException(InvalidBookStatusException ex) {
     ApiError apiError = new ApiError(BAD_REQUEST);
     apiError.setMessage(ex.getMessage());
     return buildResponseEntity(apiError);

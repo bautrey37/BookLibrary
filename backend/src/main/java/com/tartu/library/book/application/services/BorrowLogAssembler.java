@@ -10,22 +10,19 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class BorrowLogAssembler
-        extends RepresentationModelAssemblerSupport<BorrowLog, BorrowLogDTO> {
+    extends RepresentationModelAssemblerSupport<BorrowLog, BorrowLogDTO> {
+
+  @Autowired BookItemAssembler bookItemAssembler;
+  @Autowired PersonAssembler personAssembler;
 
   public BorrowLogAssembler() {
     super(BookItemRestController.class, BorrowLogDTO.class);
   }
 
-  @Autowired
-  BookItemAssembler bookItemAssembler;
-
-  @Autowired
-  PersonAssembler personAssembler;
-
   @Override
   public BorrowLogDTO toModel(BorrowLog entity) {
     BorrowLogDTO dto = new BorrowLogDTO();
-//    dto.setItem(bookItemAssembler.toModel(entity.getItem()));
+    //    dto.setItem(bookItemAssembler.toModel(entity.getItem()));
     if (entity.getBorrower() != null) {
       dto.setBorrower(personAssembler.toModel(entity.getBorrower()));
     }
