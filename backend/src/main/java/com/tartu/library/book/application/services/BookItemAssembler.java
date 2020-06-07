@@ -48,8 +48,12 @@ public class BookItemAssembler extends RepresentationModelAssemblerSupport<BookI
                       .withRel("return")
                       .withType(HttpMethod.PATCH.toString()));
       default -> throw new IllegalArgumentException(String.format("Status not available. Status: (%s)", bookItem.getStatus()));
-
     }
+
+    dto.add(
+            linkTo(methodOn(BookItemRestController.class).retrieveBorrowLogs(bookItem.getId()))
+                    .withRel("logs")
+                    .withType(HttpMethod.GET.toString()));
 
     return dto;
   }

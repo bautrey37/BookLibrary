@@ -2,6 +2,7 @@ package com.tartu.library.book.application.services;
 
 import com.tartu.library.book.application.dto.BookEntryDTO;
 import com.tartu.library.book.application.dto.BookItemDTO;
+import com.tartu.library.book.application.dto.BorrowLogDTO;
 import com.tartu.library.book.domain.model.BookEntry;
 import com.tartu.library.book.domain.model.BookItem;
 import com.tartu.library.book.domain.model.BookStatus;
@@ -26,17 +27,26 @@ import java.util.UUID;
 public class BookService {
   Logger logger = LoggerFactory.getLogger(BookService.class);
 
-  @Autowired BookEntryRepository bookEntryRepository;
+  @Autowired
+  BookEntryRepository bookEntryRepository;
 
-  @Autowired BookItemRepository bookItemRepository;
+  @Autowired
+  BookItemRepository bookItemRepository;
 
-  @Autowired BorrowLogRepository borrowLogRepository;
+  @Autowired
+  BorrowLogRepository borrowLogRepository;
 
-  @Autowired BookEntryAssembler bookEntryAssembler;
+  @Autowired
+  BookEntryAssembler bookEntryAssembler;
 
-  @Autowired BookItemAssembler bookItemAssembler;
+  @Autowired
+  BookItemAssembler bookItemAssembler;
 
-  @Autowired PersonService personService;
+  @Autowired
+  BorrowLogAssembler borrowLogAssembler;
+
+  @Autowired
+  PersonService personService;
 
   public CollectionModel<BookEntryDTO> retrieveAllBooks() {
     List<BookEntry> books = bookEntryRepository.findAll();
@@ -80,7 +90,8 @@ public class BookService {
     return bookItemAssembler.toCollectionModel(items);
   }
 
-  public BookItemDTO borrowBook(UUID book_item_uuid, UUID person_uuid) throws InvalidBookStatusException {
+  public BookItemDTO borrowBook(UUID book_item_uuid, UUID person_uuid)
+          throws InvalidBookStatusException {
     BookItem item = retrieveBookItem(book_item_uuid);
     if (item.getStatus() == BookStatus.BORROWED) {
       throw new InvalidBookStatusException("Cannot borrow book already borrowed.");
@@ -108,6 +119,11 @@ public class BookService {
     createBorrowLog(item, borrower, BookStatus.AVAILABLE);
 
     return bookItemAssembler.toModel(item);
+  }
+
+  public CollectionModel<BorrowLogDTO> retrieveBorrowLogsByBookItem(UUID uuid) {
+    List<BorrowLog> logs = borrowLogRepository.findBorrowLogsByBookItem(uuid);
+    return borrowLogAssembler.toCollectionModel(logs);
   }
 
   private void createBorrowLog(BookItem item, Person borrower, BookStatus status) {

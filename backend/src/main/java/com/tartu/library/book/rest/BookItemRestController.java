@@ -1,6 +1,7 @@
 package com.tartu.library.book.rest;
 
 import com.tartu.library.book.application.dto.BookItemDTO;
+import com.tartu.library.book.application.dto.BorrowLogDTO;
 import com.tartu.library.book.application.services.BookService;
 import com.tartu.library.common.application.exception.InvalidBookStatusException;
 import org.slf4j.Logger;
@@ -50,4 +51,11 @@ public class BookItemRestController {
     logger.info(String.format("Returning Book Item (%s)", uuid.toString()));
     return bookService.returnBook(uuid);
   }
+
+  @GetMapping("{uuid}/logs")
+  public CollectionModel<BorrowLogDTO> retrieveBorrowLogs(@PathVariable UUID uuid) {
+    logger.info(String.format("Retrieving Borrow Logs from Book Item (%s)", uuid.toString()));
+    return bookService.retrieveBorrowLogsByBookItem(uuid);
+  }
+
 }

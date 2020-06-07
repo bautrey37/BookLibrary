@@ -161,6 +161,24 @@ Suberror field is either null or populated with errors associated with the main 
 
     Deletes a single book item by ID.  API should be protected.
     
+-   ### `POST /api/book/item/:id/borrow`
+
+    Borrow a book.  Needs to submit identifying information such as name of person.  
+    The date will be populated automatically of the borrowed book.
+    The borrower will borrow a book item as that represents the actual physical book.
+    Creates a Borrow Log entry. 
+
+-   ### `POST /api/book/item/:id/return`
+
+    Returns a book to the library. 
+    Will receive the option to submit a review.  Borrowers information is already populated in unpublished review.  Link to do review will be sent back with HATEOAS.
+    Creates a Borrow Log entry
+    
+-   ### `GET /api/book/item/:id/logs`
+
+    Retrieves all the Borrow Log entries for this Book Item which are creating by borrowing and returning books. 
+
+    
 ## Person
 
 -   ### `GET /api/person`
@@ -175,18 +193,6 @@ Suberror field is either null or populated with errors associated with the main 
 
     Retrieves person by Id. 
 
-## Borrow
-
--   ### `POST /api/book/borrow`
-
-    Borrow a book.  Needs to submit identifying information such as name of person.  
-    The date will be populated automatically of the borrowed book.
-    The borrower will borrow a book item as that represents the actual physical book. 
-
--   ### `POST /api/book/return`
-
-    Returns a book to the library. 
-    Will receive the option to submit a review.  Borrowers information is already populated in unpublished review.  Link to do review will be sent back with HATEOAS.
 
 ## Review
 
