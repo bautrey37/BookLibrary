@@ -45,7 +45,7 @@ Book Entry is the book type. Book item is the actual book with serial code to id
 A borrower borrows a book item, which has a book type. 
 When a borrower returns the book they can leave of review, consisting of a rate, text, and borrower information.
 
-![domain model](https://app.lucidchart.com/publicSegments/view/46558cc8-ef93-47fc-ae58-9c857b74e2ed/image.png)
+![domain model](https://app.lucidchart.com/publicSegments/view/5fea11c4-a3c9-4cc2-b6b0-ec44ce5f6193/image.png)
 
 ([edit](https://app.lucidchart.com/invitations/accept/caa84f8a-745d-4361-8ca2-80775415196a))
 
@@ -95,9 +95,9 @@ Fields:
 
 ## Sequence Diagram
 
-![createBook diagram](https://app.lucidchart.com/publicSegments/view/5fea11c4-a3c9-4cc2-b6b0-ec44ce5f6193/image.png)
+![createBook diagram](https://app.lucidchart.com/publicSegments/view/82312fe8-f152-4964-b5f7-3fcb3f954364/image.png)
 
-([edit](https://app.lucidchart.com/invitations/accept/caa84f8a-745d-4361-8ca2-80775415196a))
+([edit](https://app.lucidchart.com/invitations/accept/0d4bae44-7fee-4c91-b27a-cf4a7934029d))
 
 # API
 
