@@ -4,11 +4,14 @@ import com.tartu.library.book.application.dto.BookEntryDTO;
 import com.tartu.library.book.application.dto.BookItemDTO;
 import com.tartu.library.book.domain.model.BookEntry;
 import com.tartu.library.book.domain.model.BookItem;
+import com.tartu.library.book.domain.model.BookStatus;
+import com.tartu.library.book.domain.model.BorrowLog;
 import com.tartu.library.book.domain.repository.BookEntryRepository;
 import com.tartu.library.book.domain.repository.BookItemRepository;
+import com.tartu.library.book.domain.repository.BorrowLogRepository;
 import com.tartu.library.common.application.exception.EntityNotFoundException;
+import com.tartu.library.person.application.services.PersonService;
 import com.tartu.library.person.domain.model.Person;
-import com.tartu.library.person.domain.repository.PersonRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +29,13 @@ public class BookService {
 
   @Autowired BookItemRepository bookItemRepository;
 
-  @Autowired PersonRepository personRepository;
+  @Autowired BorrowLogRepository borrowLogRepository;
 
   @Autowired BookEntryAssembler bookEntryAssembler;
 
   @Autowired BookItemAssembler bookItemAssembler;
+
+  @Autowired PersonService personService;
 
   public CollectionModel<BookEntryDTO> retrieveAllBooks() {
     List<BookEntry> books = bookEntryRepository.findAll();
@@ -51,16 +56,7 @@ public class BookService {
       bookEntryRepository.save(bookEntry);
     }
 
-    Person person = null;
-    if (partialBookItemDTO.getOwner() != null) {
-      person = Person.of(partialBookItemDTO.getOwner());
-      if (personRepository.existsByName(person.getName())) {
-        logger.info(String.format("Person already exists. Name: (%s)", person.getName()));
-        person = personRepository.findByName(person.getName());
-      } else {
-        personRepository.save(person);
-      }
-    }
+    Person person = personService.createPersonIfNotExist(partialBookItemDTO.getOwner());
 
     BookItem bookItem = BookItem.of(bookEntry, person, partialBookItemDTO.getSerialNumber());
     bookItemRepository.save(bookItem);
@@ -81,6 +77,19 @@ public class BookService {
   public CollectionModel<BookItemDTO> retrieveBookItemsByBookEntry(UUID entry_uuid) {
     List<BookItem> items = bookItemRepository.retrieveBookItemsByBookEntry(entry_uuid);
     return bookItemAssembler.toCollectionModel(items);
+  }
+
+  public BookItemDTO borrowBook(UUID book_item_uuid, UUID person_uuid) {
+    BookItem item = retrieveBookItem(book_item_uuid);
+    Person person = personService.retrievePerson(person_uuid);
+    item.setBorrower(person);
+    item.setStatus(BookStatus.BORROWED);
+    bookItemRepository.save(item);
+
+    BorrowLog log = BorrowLog.of(item, person);
+    borrowLogRepository.save(log);
+
+    return bookItemAssembler.toModel(item);
   }
 
   private BookItem retrieveBookItem(UUID uuid) {

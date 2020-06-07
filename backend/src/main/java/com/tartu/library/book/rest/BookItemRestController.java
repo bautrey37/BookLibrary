@@ -39,9 +39,9 @@ public class BookItemRestController {
   }
 
   @PatchMapping("{uuid}/borrow")
-  public ResponseEntity<BookItemDTO> borrowBook(@PathVariable UUID uuid) {
+  public BookItemDTO borrowBook(@PathVariable UUID uuid, @RequestParam UUID person_uuid) {
     logger.info(String.format("Borrowing Book Item (%s)", uuid.toString()));
-    return null;
+    return bookService.borrowBook(uuid, person_uuid);
   }
 
   @PatchMapping("{uuid}/return")

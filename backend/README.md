@@ -64,20 +64,25 @@ If only ISBN is posted, then the other book information will be pulled. If no IS
 Fields:
 -   Owner (OneToOne) as Person
 -   Book Entry (ManyToOne)
--   Status??
+-   Book Status
+
+### Book Status Enum
+
+-   States: AVAILABLE, BORROWED
+
+### Borrow Log
+
+Fields:
+-   Book Item (One to One)
+-   Borrower (One to One) as Person
+-   Borrow date
+-   Return Date
 
 ### Person
 
 Fields:
 -   Name
 -   E-mail
-
-### Borrow
-
-Fields:
--   Status??
--   Person (OneToOne)
--   Book Item (OneToOne)
 
 ### Review
 
@@ -90,9 +95,9 @@ Fields:
 
 ## Sequence Diagram
 
-![createBook diagram](https://app.lucidchart.com/publicSegments/view/82312fe8-f152-4964-b5f7-3fcb3f954364/image.png)
+![createBook diagram](https://app.lucidchart.com/publicSegments/view/5fea11c4-a3c9-4cc2-b6b0-ec44ce5f6193/image.png)
 
-([edit](https://app.lucidchart.com/invitations/accept/0d4bae44-7fee-4c91-b27a-cf4a7934029d))
+([edit](https://app.lucidchart.com/invitations/accept/caa84f8a-745d-4361-8ca2-80775415196a))
 
 # API
 

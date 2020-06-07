@@ -36,7 +36,7 @@ public class BookItemAssembler extends RepresentationModelAssemblerSupport<BookI
     switch (bookItem.getStatus()) {
       case AVAILABLE ->
         dto.add(
-            linkTo(methodOn(BookItemRestController.class).borrowBook(bookItem.getId()))
+            linkTo(methodOn(BookItemRestController.class).borrowBook(bookItem.getId(), bookItem.getOwner().getId()))
                 .withRel("borrow")
                 .withType(HttpMethod.PATCH.toString()));
       case BORROWED ->

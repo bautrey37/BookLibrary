@@ -22,14 +22,21 @@ public class PersonService {
   @Autowired PersonAssembler personAssembler;
 
   public PersonDTO createPerson(PersonDTO personDTO) {
-    Person person = Person.of(personDTO);
-    if (personRepository.existsByName(person.getName())) {
-      logger.info(String.format("Person already exists. Name: (%s)", person.getName()));
-      person = personRepository.findByName(person.getName());
-    } else {
-      personRepository.save(person);
+    return personAssembler.toModel(createPersonIfNotExist(personDTO));
+  }
+
+  public Person createPersonIfNotExist(PersonDTO dto) {
+    Person person = null;
+    if (dto != null) {
+      person = Person.of(dto);
+      if (personRepository.existsByName(person.getName())) {
+        logger.info(String.format("Person already exists. Name: (%s)", person.getName()));
+        person = personRepository.findByName(person.getName());
+      } else {
+        personRepository.save(person);
+      }
     }
-    return personAssembler.toModel(person);
+    return person;
   }
 
   public CollectionModel<PersonDTO> retrieveAllPersonDTO() {
@@ -42,7 +49,7 @@ public class PersonService {
     return personAssembler.toModel(person);
   }
 
-  private Person retrievePerson(UUID uuid) {
+  public Person retrievePerson(UUID uuid) {
     return personRepository
         .findById(uuid)
         .orElseThrow(() -> new EntityNotFoundException(Person.class, "uuid", uuid.toString()));
