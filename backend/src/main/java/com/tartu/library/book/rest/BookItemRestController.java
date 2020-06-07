@@ -2,6 +2,7 @@ package com.tartu.library.book.rest;
 
 import com.tartu.library.book.application.dto.BookItemDTO;
 import com.tartu.library.book.application.services.BookService;
+import com.tartu.library.common.application.exception.InvalidBookStatusException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,14 +40,14 @@ public class BookItemRestController {
   }
 
   @PatchMapping("{uuid}/borrow")
-  public BookItemDTO borrowBook(@PathVariable UUID uuid, @RequestParam UUID person_uuid) {
+  public BookItemDTO borrowBook(@PathVariable UUID uuid, @RequestParam UUID person_uuid) throws InvalidBookStatusException {
     logger.info(String.format("Borrowing Book Item (%s)", uuid.toString()));
     return bookService.borrowBook(uuid, person_uuid);
   }
 
   @PatchMapping("{uuid}/return")
-  public ResponseEntity<BookItemDTO> returnBook(@PathVariable UUID uuid) {
+  public BookItemDTO returnBook(@PathVariable UUID uuid) throws InvalidBookStatusException {
     logger.info(String.format("Returning Book Item (%s)", uuid.toString()));
-    return null;
+    return bookService.returnBook(uuid);
   }
 }
