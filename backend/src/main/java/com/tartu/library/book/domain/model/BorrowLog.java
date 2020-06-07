@@ -13,16 +13,13 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor(force = true, access = AccessLevel.PROTECTED)
 public class BorrowLog {
+  @OneToOne BookItem item;
+  @OneToOne Person borrower;
+  LocalDateTime borrowDate;
+  LocalDateTime returnDate;
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id;
-
-  @OneToOne BookItem item;
-
-  @OneToOne Person borrower;
-
-  LocalDateTime borrowDate;
-  LocalDateTime returnDate;
 
   public static BorrowLog of(BookItem item, Person borrower) {
     BorrowLog log = new BorrowLog();
