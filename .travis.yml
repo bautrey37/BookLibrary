@@ -8,5 +8,5 @@ cache:
   directories:
     - node_modules
 
-#after_success:
-#  - mvn clean test jacoco:report coveralls:report
+after_success:
+  - mvn clean test jacoco:report coveralls:report

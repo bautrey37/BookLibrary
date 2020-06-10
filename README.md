@@ -1,6 +1,7 @@
 # Book Library
 
 [![Build Status](https://travis-ci.com/bautrey37/BookLibrary.svg?branch=master)](https://travis-ci.com/bautrey37/BookLibrary)
+[![Coverage Status](https://coveralls.io/repos/github/bautrey37/BookLibrary/badge.svg)](https://coveralls.io/github/bautrey37/BookLibrary)
 [![Deployed on Heroku](https://img.shields.io/badge/heroku-deployed-blueviolet.svg?logo=heroku)](https://tartu-library.herokuapp.com/)
 [![License](http://img.shields.io/:license-mit-blue.svg)](https://github.com/bautrey37/BookLibrary/blob/master/LICENSE)
 

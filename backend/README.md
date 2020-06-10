@@ -33,6 +33,8 @@ It should be able to keep track of multiple copies of the same book.  The borrow
 -   postgresql
 -   h2
 -   lombok
+-   jacoco
+-   coveralls
 
 ## Database
 
@@ -209,3 +211,6 @@ Suberror field is either null or populated with errors associated with the main 
     Create review of the Book Entry that was previously borrowed. After borrowing, an unpublished draft review is already created with borrower information.
     If the ID matches an unpublished review, then the review will be updated on that review.
 
+## Test
+
+`mvn clean test jacoco:report coveralls:report`

@@ -21,8 +21,8 @@
         <main.basedir>${project.basedir}</main.basedir>
 
         <!-- Analysis Tools for CI -->
-<!--        <build-plugin.jacoco.version>0.8.5</build-plugin.jacoco.version>-->
-<!--        <build-plugin.coveralls.version>4.3.0</build-plugin.coveralls.version>-->
+        <build-plugin.jacoco.version>0.8.5</build-plugin.jacoco.version>
+        <build-plugin.coveralls.version>4.3.0</build-plugin.coveralls.version>
     </properties>
 
     <modules>
@@ -32,36 +32,36 @@
 
     <build>
         <plugins>
-<!--            <plugin>-->
-<!--                <groupId>org.jacoco</groupId>-->
-<!--                <artifactId>jacoco-maven-plugin</artifactId>-->
-<!--                <version>${build-plugin.jacoco.version}</version>-->
-<!--                <executions>-->
-<!--                    &lt;!&ndash; Prepares the property pointing to the JaCoCo-->
-<!--                    runtime agent which is passed as VM argument when Maven the Surefire plugin-->
-<!--                    is executed. &ndash;&gt;-->
-<!--                    <execution>-->
-<!--                        <id>pre-unit-test</id>-->
-<!--                        <goals>-->
-<!--                            <goal>prepare-agent</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                    &lt;!&ndash; Ensures that the code coverage report for-->
-<!--                    unit tests is created after unit tests have been run. &ndash;&gt;-->
-<!--                    <execution>-->
-<!--                        <id>post-unit-test</id>-->
-<!--                        <phase>test</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>report</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
-<!--            <plugin>-->
-<!--                <groupId>org.eluder.coveralls</groupId>-->
-<!--                <artifactId>coveralls-maven-plugin</artifactId>-->
-<!--                <version>${build-plugin.coveralls.version}</version>-->
-<!--            </plugin>-->
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${build-plugin.jacoco.version}</version>
+                <executions>
+                    <!-- Prepares the property pointing to the JaCoCo
+                    runtime agent which is passed as VM argument when Maven the Surefire plugin
+                    is executed. -->
+                    <execution>
+                        <id>pre-unit-test</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <!-- Ensures that the code coverage report for
+                    unit tests is created after unit tests have been run. -->
+                    <execution>
+                        <id>post-unit-test</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.eluder.coveralls</groupId>
+                <artifactId>coveralls-maven-plugin</artifactId>
+                <version>${build-plugin.coveralls.version}</version>
+            </plugin>
         </plugins>
     </build>
 
