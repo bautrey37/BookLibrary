@@ -122,7 +122,9 @@
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
 				<configuration>
-					<argLine>--enable-preview</argLine>
+					<!--suppress UnresolvedMavenProperty -->
+					<!--The ${argLine} is needed to find the jacoco.exec generated file-->
+					<argLine>${argLine} --enable-preview</argLine>
 				</configuration>
 			</plugin>
 			<plugin>

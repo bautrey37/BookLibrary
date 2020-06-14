@@ -38,21 +38,16 @@
                 <artifactId>jacoco-maven-plugin</artifactId>
                 <version>${build-plugin.jacoco.version}</version>
                 <executions>
+                    <!-- Prepares the property pointing to the JaCoCo
+                    runtime agent which is passed as VM argument when Maven the Surefire plugin
+                    is executed. -->
                     <execution>
                         <id>prepare-agent</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
                     </execution>
-                    <!-- Prepares the property pointing to the JaCoCo
-                    runtime agent which is passed as VM argument when Maven the Surefire plugin
-                    is executed. -->
-<!--                    <execution>-->
-<!--                        <id>pre-unit-test</id>-->
-<!--                        <goals>-->
-<!--                            <goal>prepare-agent</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
+
                     <!-- Ensures that the code coverage report for
                     unit tests is created after unit tests have been run. -->
 <!--                    <execution>-->
@@ -64,32 +59,10 @@
 <!--                    </execution>-->
                 </executions>
             </plugin>
-<!--            <plugin>-->
-<!--                <groupId>org.jacoco</groupId>-->
-<!--                <artifactId>jacoco-maven-plugin</artifactId>-->
-<!--                <version>0.5.7.201204190339</version>-->
-<!--                <executions>-->
-<!--                    <execution>-->
-<!--                        <goals>-->
-<!--                            <goal>prepare-agent</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                    <execution>-->
-<!--                        <id>report</id>-->
-<!--                        <phase>prepare-package</phase>-->
-<!--                        <goals>-->
-<!--                            <goal>report</goal>-->
-<!--                        </goals>-->
-<!--                    </execution>-->
-<!--                </executions>-->
-<!--            </plugin>-->
             <plugin>
                 <groupId>org.eluder.coveralls</groupId>
                 <artifactId>coveralls-maven-plugin</artifactId>
                 <version>${build-plugin.coveralls.version}</version>
-                <configuration>
-                    <repoToken>YzdrVkq6GhH450yLe37MAfglVY283Ujyl</repoToken>
-                </configuration>
             </plugin>
         </plugins>
     </build>
