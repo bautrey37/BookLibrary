@@ -18,6 +18,7 @@ public class BorrowLog {
   @OneToOne Person borrower;
   BookStatus status;
   @CreationTimestamp private LocalDateTime createDateTime;
+
   @Id
   @GeneratedValue(strategy = GenerationType.AUTO)
   private UUID id;
