@@ -32,18 +32,12 @@ public class SecurityConfigurator extends WebSecurityConfigurerAdapter {
         .cors()
         .and()
         .authorizeRequests()
-        .antMatchers("/h2-console/**")
-        .permitAll()
-        .antMatchers("/api/users")
-        .permitAll()
-        .antMatchers("/api/authenticate")
-        .permitAll()
-        .antMatchers(HttpMethod.OPTIONS, "/api/**")
-        .permitAll()
-        .antMatchers("/api/**")
-        .authenticated()
-        .and()
-        .httpBasic();
+          .antMatchers("/h2-console/**").permitAll()
+          .antMatchers("/api/users").permitAll()
+          .antMatchers("/api/authenticate").permitAll()
+          .antMatchers(HttpMethod.OPTIONS, "/api/**").permitAll()
+          .antMatchers("/api/**").authenticated()
+        .and().httpBasic();
     http.headers().frameOptions().disable();
   }
 

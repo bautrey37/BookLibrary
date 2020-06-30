@@ -16,6 +16,7 @@ import java.util.UUID;
 @Data
 @NoArgsConstructor(force = true, access = AccessLevel.PROTECTED)
 public class AuthUser implements UserDetails {
+  /** User is reserved word in Postgres */
   String username;
   String password;
   @OneToOne Person person;
