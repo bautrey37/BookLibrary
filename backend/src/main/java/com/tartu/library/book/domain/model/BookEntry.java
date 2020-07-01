@@ -33,6 +33,11 @@ public class BookEntry {
   @CreationTimestamp private LocalDateTime createDateTime;
   @UpdateTimestamp private LocalDateTime updatedDateTime;
 
+  public BookEntry incrementBookItemsCount() {
+    this.numberOfBookItems = this.numberOfBookItems + 1;
+    return this;
+  }
+
   public static BookEntry of(String bookName, String author, LocalDate publishDate) {
     BookEntry be = new BookEntry();
     be.setBookName(bookName);

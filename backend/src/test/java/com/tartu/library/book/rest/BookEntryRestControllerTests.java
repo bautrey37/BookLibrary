@@ -63,7 +63,12 @@ public class BookEntryRestControllerTests {
   /** Book Entry and Person should not be duplicated. Only one instance by name is allowed. */
   @Test
   public void testCreateBook() throws Exception {
-    BookEntryDTO bookEntryDTO = BookEntryDTO.of(null, "test book", "test", LocalDate.now());
+    BookEntryDTO bookEntryDTO =
+        BookEntryDTO.builder()
+            .bookName("test book")
+            .author("test")
+            .publishDate(LocalDate.now())
+            .build();
     PersonDTO personDTO = PersonDTO.of("Test User", "test@test.com");
     BookItemDTO bookItemDTO =
         BookItemDTO.builder()
@@ -99,6 +104,7 @@ public class BookEntryRestControllerTests {
         .andExpect(status().is2xxSuccessful());
 
     assertThat(bookEntryRepository.findAll().size()).isEqualTo(1);
+    assertThat(bookEntryRepository.findAll().get(0).getNumberOfBookItems()).isEqualTo(3);
     assertThat(bookItemRepository.findAll().size()).isEqualTo(3);
     assertThat(personRepository.findAll().size()).isEqualTo(1);
   }

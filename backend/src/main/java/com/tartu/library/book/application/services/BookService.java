@@ -56,6 +56,7 @@ public class BookService {
     if (bookEntryRepository.existsByName(bookEntry.getBookName())) {
       logger.info(String.format("BookEntry already exists. Name: (%s)", bookEntry.getBookName()));
       bookEntry = bookEntryRepository.findByName(bookEntry.getBookName());
+      bookEntryRepository.save(bookEntry.incrementBookItemsCount());
     } else {
       bookEntryRepository.save(bookEntry);
     }

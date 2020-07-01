@@ -24,6 +24,7 @@ public class BookEntryAssembler
     dto.setBookName(bookEntry.getBookName());
     dto.setPublishDate(bookEntry.getPublishDate());
     dto.setISBN(bookEntry.getISBN());
+    dto.setNumberOfBookItems(bookEntry.getNumberOfBookItems());
 
     dto.add(
         linkTo(
