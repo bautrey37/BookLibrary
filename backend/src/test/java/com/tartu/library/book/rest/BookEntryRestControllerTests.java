@@ -31,8 +31,7 @@ import org.springframework.web.context.WebApplicationContext;
 import java.time.LocalDate;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -141,5 +140,57 @@ public class BookEntryRestControllerTests {
     BookItemDTO itemDTO = mapper.readValue(responseDTOs.get(0).toString(), BookItemDTO.class);
     assertThat(itemDTO.getLinks("borrow")).isNotNull();
     assertThat(itemDTO.getBookInfo().getBookName()).isEqualTo(entry.getBookName());
+  }
+
+  @Test
+  public void testDeleteBookEntry() throws Exception {
+    BookEntryDTO bookEntryDTO =
+        BookEntryDTO.builder()
+            .bookName("test book")
+            .author("test")
+            .publishDate(LocalDate.now())
+            .build();
+    PersonDTO personDTO = PersonDTO.of("Test User", "test@test.com");
+    BookItemDTO bookItemDTO =
+        BookItemDTO.builder()
+            .serialNumber("1234")
+            .bookInfo(bookEntryDTO)
+            .owner(personDTO)
+            .status(BookStatus.AVAILABLE)
+            .build();
+
+    // create book 1
+    MvcResult book1 =
+        mockMvc
+            .perform(
+                post(apiPath)
+                    .content(mapper.writeValueAsString(bookItemDTO))
+                    .contentType(MediaType.APPLICATION_JSON))
+            .andExpect(status().is2xxSuccessful())
+            .andDo(print())
+            .andReturn();
+    BookItemDTO bookItemDTO1 =
+        mapper.readValue(book1.getResponse().getContentAsString(), BookItemDTO.class);
+
+    // create book 2
+    mockMvc
+        .perform(
+            post(apiPath)
+                .content(mapper.writeValueAsString(bookItemDTO))
+                .contentType(MediaType.APPLICATION_JSON))
+        .andExpect(status().is2xxSuccessful())
+        .andReturn();
+
+    assertThat(bookEntryRepository.findAll().get(0).getNumberOfBookItems()).isEqualTo(2);
+    assertThat(bookItemRepository.findAll().size()).isEqualTo(2);
+
+    // delete book entry
+    mockMvc
+        .perform(delete(apiPath + "/" + bookItemDTO1.getBookInfo().getId()))
+        .andDo(print())
+        .andExpect(status().is2xxSuccessful());
+
+    assertThat(bookEntryRepository.findAll().size()).isEqualTo(0);
+    assertThat(bookItemRepository.findAll().size()).isEqualTo(0);
   }
 }

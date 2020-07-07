@@ -4,6 +4,7 @@ import lombok.*;
 import org.springframework.hateoas.RepresentationModel;
 
 import java.time.LocalDate;
+import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -11,6 +12,7 @@ import java.time.LocalDate;
 @NoArgsConstructor(force = true)
 @AllArgsConstructor(staticName = "of")
 public class BookEntryDTO extends RepresentationModel<BookEntryDTO> {
+  UUID id;
   String ISBN;
   String bookName;
   String author;

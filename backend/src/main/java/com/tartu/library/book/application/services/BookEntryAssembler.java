@@ -20,6 +20,7 @@ public class BookEntryAssembler
   @Override
   public BookEntryDTO toModel(BookEntry bookEntry) {
     BookEntryDTO dto = createModelWithId(bookEntry.getId(), bookEntry);
+    dto.setId(bookEntry.getId());
     dto.setAuthor(bookEntry.getAuthor());
     dto.setBookName(bookEntry.getBookName());
     dto.setPublishDate(bookEntry.getPublishDate());

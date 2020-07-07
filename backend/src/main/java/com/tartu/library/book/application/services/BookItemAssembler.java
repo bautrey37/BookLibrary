@@ -28,6 +28,7 @@ public class BookItemAssembler extends RepresentationModelAssemblerSupport<BookI
   @Override
   public BookItemDTO toModel(BookItem bookItem) {
     BookItemDTO dto = createModelWithId(bookItem.getId(), bookItem);
+    dto.setId(bookItem.getId());
     dto.setBookInfo(bookEntryAssembler.toModel(bookItem.getBookInfo()));
     dto.setSerialNumber(bookItem.getSerialNumber());
     if (bookItem.getOwner() != null) {
