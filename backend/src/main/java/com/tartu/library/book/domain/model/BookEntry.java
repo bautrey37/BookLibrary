@@ -37,6 +37,11 @@ public class BookEntry {
     this.numberOfBookItems = this.numberOfBookItems + 1;
     return this;
   }
+  public BookEntry decrementBookItemsCount() {
+    this.numberOfBookItems = this.numberOfBookItems - 1;
+    return this;
+  }
+
 
   public static BookEntry of(String bookName, String author, LocalDate publishDate) {
     BookEntry be = new BookEntry();
