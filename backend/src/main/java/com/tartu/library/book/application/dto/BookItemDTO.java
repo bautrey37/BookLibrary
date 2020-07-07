@@ -6,6 +6,7 @@ import lombok.*;
 import org.springframework.hateoas.RepresentationModel;
 
 import javax.validation.constraints.NotNull;
+import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = true)
 @Data
@@ -15,6 +16,7 @@ import javax.validation.constraints.NotNull;
 public class BookItemDTO extends RepresentationModel<BookItemDTO> {
   @NotNull String serialNumber;
   @NotNull BookEntryDTO bookInfo;
+  UUID id;
   PersonDTO owner;
   PersonDTO borrower;
   BookStatus status;
