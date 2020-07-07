@@ -32,6 +32,11 @@ public class BookEntryAssembler
                     .retrieveBookItemsByBookEntry(bookEntry.getId()))
             .withRel("items")
             .withType(HttpMethod.GET.toString()));
+
+    dto.add(
+        linkTo(methodOn(BookEntryRestController.class).deleteBookEntry(bookEntry.getId()))
+            .withRel("delete")
+            .withType(HttpMethod.DELETE.toString()));
     return dto;
   }
 }
