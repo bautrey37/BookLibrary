@@ -55,6 +55,11 @@ public class BookItemAssembler extends RepresentationModelAssemblerSupport<BookI
                     .withRel("logs")
                     .withType(HttpMethod.GET.toString()));
 
+    dto.add(
+            linkTo(methodOn(BookItemRestController.class).deleteBookItem(bookItem.getId()))
+                    .withRel("delete")
+                    .withType(HttpMethod.DELETE.toString()));
+
     return dto;
   }
 }

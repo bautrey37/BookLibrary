@@ -74,6 +74,13 @@ public class BookService {
     return bookItemAssembler.toModel(item);
   }
 
+  public void deleteBookItem(UUID uuid) {
+    BookItem item = retrieveBookItem(uuid);
+    bookItemRepository.delete(item);
+    BookEntry entry = retrieveBookEntry(item.getBookInfo().getId());
+    bookEntryRepository.save(entry.decrementBookItemsCount());
+  }
+
   public BookEntryDTO retrieveBookEntryDTO(UUID uuid) {
     BookEntry entry = retrieveBookEntry(uuid);
     return bookEntryAssembler.toModel(entry);
