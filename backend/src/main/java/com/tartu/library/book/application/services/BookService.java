@@ -56,6 +56,7 @@ public class BookService {
     if (bookEntryRepository.existsByName(bookEntry.getBookName())) {
       logger.info(String.format("BookEntry already exists. Name: (%s)", bookEntry.getBookName()));
       bookEntry = bookEntryRepository.findByName(bookEntry.getBookName());
+      bookEntryRepository.save(bookEntry.incrementBookItemsCount());
     } else {
       bookEntryRepository.save(bookEntry);
     }
@@ -68,9 +69,26 @@ public class BookService {
     return bookItemAssembler.toModel(bookItem);
   }
 
+  public void deleteBookEntry(UUID entry_uuid) {
+    List<BookItem> items = bookItemRepository.retrieveBookItemsByBookEntry(entry_uuid);
+    for (BookItem item : items) {
+      bookItemRepository.delete(item);
+    }
+
+    BookEntry entry = retrieveBookEntry(entry_uuid);
+    bookEntryRepository.delete(entry);
+  }
+
   public BookItemDTO retrieveBookItemDTO(UUID uuid) {
     BookItem item = retrieveBookItem(uuid);
     return bookItemAssembler.toModel(item);
+  }
+
+  public void deleteBookItem(UUID uuid) {
+    BookItem item = retrieveBookItem(uuid);
+    bookItemRepository.delete(item);
+    BookEntry entry = retrieveBookEntry(item.getBookInfo().getId());
+    bookEntryRepository.save(entry.decrementBookItemsCount());
   }
 
   public BookEntryDTO retrieveBookEntryDTO(UUID uuid) {

@@ -50,4 +50,14 @@ public class BookEntry {
     be.setNumberOfBookItems(1);
     return be;
   }
+
+  public BookEntry incrementBookItemsCount() {
+    this.numberOfBookItems = this.numberOfBookItems + 1;
+    return this;
+  }
+
+  public BookEntry decrementBookItemsCount() {
+    this.numberOfBookItems = this.numberOfBookItems - 1;
+    return this;
+  }
 }

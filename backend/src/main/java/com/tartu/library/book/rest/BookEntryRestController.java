@@ -48,9 +48,10 @@ public class BookEntryRestController {
   }
 
   @DeleteMapping("{uuid}")
-  public ResponseEntity<BookEntryDTO> deleteBook(@PathVariable UUID uuid) {
+  public ResponseEntity<Void> deleteBookEntry(@PathVariable UUID uuid) {
     logger.info(String.format("Deleting Book Entry (%s)", uuid.toString()));
-    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+    bookService.deleteBookEntry(uuid);
+    return new ResponseEntity<>(HttpStatus.OK);
   }
 
   @GetMapping("{uuid}/items")

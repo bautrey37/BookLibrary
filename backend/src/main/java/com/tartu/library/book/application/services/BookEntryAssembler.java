@@ -20,10 +20,12 @@ public class BookEntryAssembler
   @Override
   public BookEntryDTO toModel(BookEntry bookEntry) {
     BookEntryDTO dto = createModelWithId(bookEntry.getId(), bookEntry);
+    dto.setId(bookEntry.getId());
     dto.setAuthor(bookEntry.getAuthor());
     dto.setBookName(bookEntry.getBookName());
     dto.setPublishDate(bookEntry.getPublishDate());
     dto.setISBN(bookEntry.getISBN());
+    dto.setNumberOfBookItems(bookEntry.getNumberOfBookItems());
 
     dto.add(
         linkTo(
@@ -31,6 +33,11 @@ public class BookEntryAssembler
                     .retrieveBookItemsByBookEntry(bookEntry.getId()))
             .withRel("items")
             .withType(HttpMethod.GET.toString()));
+
+    dto.add(
+        linkTo(methodOn(BookEntryRestController.class).deleteBookEntry(bookEntry.getId()))
+            .withRel("delete")
+            .withType(HttpMethod.DELETE.toString()));
     return dto;
   }
 }
