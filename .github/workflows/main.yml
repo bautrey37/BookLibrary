@@ -28,6 +28,7 @@ jobs:
         VALIDATE_YAML = true
         VALIDATE_JSON = true
         VALIDATE_XML = true
-        VALIDATE_JAVA = true
         VALIDATE_JAVASCRIPT_ES = true
         VALIDATE_JAVASCRIPT_STANDARD = true
+        # only works on local
+        DEFAULT_WORKSPACE = /tmp/lint/backend
