@@ -28,8 +28,8 @@ jobs:
         VALIDATE_YAML: true
         VALIDATE_JSON: true
         VALIDATE_XML: true
-        LINTER_RULES_PATH: .github/linters
-        JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.js
-        VALIDATE_JAVASCRIPT_ES: true
+#        LINTER_RULES_PATH: .github/linters
+#        JAVASCRIPT_ES_CONFIG_FILE: .eslintrc.js
+#        VALIDATE_JAVASCRIPT_ES: true
         VALIDATE_DOCKER: true
         VALIDATE_MD: true
