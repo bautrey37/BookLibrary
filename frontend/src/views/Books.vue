@@ -31,9 +31,9 @@
 </template>
 
 <script>
-import api from "../lib/api";
+  import api from '../lib/api'
 
-export default {
+  export default {
   name: "Books",
   data: () => {
     return {
@@ -42,14 +42,14 @@ export default {
       //   { field: "name", label: "Book Name" },
       //   { field: "author", label: "Author" }
       // ],
-      loading: false
+      loading: false,
     };
   },
-  mounted: function() {
+  mounted: function () {
     this.loading = true;
     return api
       .bookList()
-      .then(data => {
+      .then((data) => {
         this.books = data;
         this.loading = false;
       })
@@ -58,8 +58,8 @@ export default {
       });
   },
   methods: {
-    borrow: function() {}
-  }
+    borrow: function () {},
+  },
 };
 </script>
 

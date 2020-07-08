@@ -29,4 +29,3 @@ jobs:
         VALIDATE_JSON: true
         VALIDATE_XML: true
         VALIDATE_JAVASCRIPT_ES: true
-        VALIDATE_JAVASCRIPT_STANDARD: true
