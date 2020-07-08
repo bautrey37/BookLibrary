@@ -31,9 +31,9 @@
 </template>
 
 <script>
-  import api from '../lib/api'
+import api from "../lib/api";
 
-  export default {
+export default {
   name: "Books",
   data: () => {
     return {
