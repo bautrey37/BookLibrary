@@ -31,10 +31,10 @@
 </template>
 
 <script>
-import api from "../lib/api";
+import api from '../lib/api';
 
 export default {
-  name: "Books",
+  name: 'Books',
   data: () => {
     return {
       books: [],
@@ -54,7 +54,7 @@ export default {
         this.loading = false;
       })
       .catch(() => {
-        console.log("error");
+        console.log('error');
       });
   },
   methods: {
