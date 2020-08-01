@@ -1,8 +1,20 @@
 <template>
   <div class="wrapper">
     <form>
-      <b-field name="Book Name">
+      <b-field label="Book Name">
         <b-input v-model="formData.bookInfo.bookName"></b-input>
+      </b-field>
+      <b-field label="Book Author">
+        <b-input v-model="formData.bookInfo.author"></b-input>
+      </b-field>
+      <b-field label="Publish Date">
+        <b-datepicker
+          placeholder="Click to select..."
+          v-model="formData.bookInfo.publishDate"
+        ></b-datepicker>
+      </b-field>
+      <b-field label="Serial Number">
+        <b-input v-model="formData.serialNumber"></b-input>
       </b-field>
       <choose-person></choose-person>
     </form>
@@ -12,6 +24,9 @@
 
 <script>
 import ChoosePerson from '@/components/ChoosePerson';
+// import moment from 'moment';
+// moment().toDate()
+
 export default {
   name: 'AddNewBook.vue',
   data() {
@@ -21,7 +36,7 @@ export default {
         bookInfo: {
           bookName: '',
           author: '',
-          publishDate: '',
+          publishDate: null,
         },
       },
     };

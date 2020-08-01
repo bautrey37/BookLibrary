@@ -1,8 +1,19 @@
 <template>
   <div>
-    <ul>
-      <li v-for="person in persons" :key="person">{{ person }}</li>
-    </ul>
+    <b-field label="Book Owner">
+      <b-dropdown hoverable aria-role="list">
+        <button class="button is-primary" slot="trigger">
+          <span>Choose Person</span>
+        </button>
+        <b-dropdown-item
+          v-for="person in persons"
+          :key="person"
+          aria-role="listitem"
+        >
+          {{ person }}
+        </b-dropdown-item>
+      </b-dropdown>
+    </b-field>
   </div>
 </template>
 
@@ -13,6 +24,9 @@ export default {
     return {
       persons: ['Brandon', 'Rain', 'Oleh'],
     };
+  },
+  methods: {
+    retrievePeople() {},
   },
 };
 </script>
