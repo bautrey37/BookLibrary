@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -40,6 +41,7 @@ public class BookEntryRestController {
   }
 
   @PatchMapping("{uuid}")
+  @Secured({"ADMIN"})
   public ResponseEntity<BookEntryDTO> modifyBook(@PathVariable UUID uuid) {
     logger.info(String.format("Modifying Book Entry (%s)", uuid.toString()));
     return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -35,6 +36,7 @@ public class BookItemRestController {
   }
 
   @DeleteMapping("{uuid}")
+  @Secured({"ADMIN"})
   public ResponseEntity<Void> deleteBookItem(@PathVariable UUID uuid) {
     logger.info(String.format("Deleting Book Item (%s)", uuid.toString()));
     bookService.deleteBookItem(uuid);
@@ -42,6 +44,7 @@ public class BookItemRestController {
   }
 
   @PatchMapping("{uuid}/borrow")
+  @Secured({"AUTH_USER"})
   public BookItemDTO borrowBook(@PathVariable UUID uuid, @RequestParam UUID person_uuid)
       throws InvalidBookStatusException {
     logger.info(String.format("Borrowing Book Item (%s)", uuid.toString()));
@@ -49,12 +52,14 @@ public class BookItemRestController {
   }
 
   @PatchMapping("{uuid}/return")
+  @Secured({"AUTH_USER"})
   public BookItemDTO returnBook(@PathVariable UUID uuid) throws InvalidBookStatusException {
     logger.info(String.format("Returning Book Item (%s)", uuid.toString()));
     return bookService.returnBook(uuid);
   }
 
   @GetMapping("{uuid}/logs")
+  @Secured({"AUTH_USER"})
   public CollectionModel<BorrowLogDTO> retrieveBorrowLogs(@PathVariable UUID uuid) {
     logger.info(String.format("Retrieving Borrow Logs from Book Item (%s)", uuid.toString()));
     return bookService.retrieveBorrowLogsByBookItem(uuid);
